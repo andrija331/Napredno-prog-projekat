@@ -189,11 +189,6 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
     }
 
     @Override
-    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public String vratiVrednostZaIzmenu() {
         return "ukupnaCena=" + ukupnaCena + ", datum='" + new java.sql.Date(datum.getTime()) + "', aranzman=" + aranzman.getAranzmanID()
                 + ", klijent=" + klijent.getKlijentID() + ", zaposleni=" + zaposleni.getZaposleniID();

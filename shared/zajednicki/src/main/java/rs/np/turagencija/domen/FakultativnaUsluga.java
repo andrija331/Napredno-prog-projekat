@@ -106,11 +106,6 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
     }
 
     @Override
-    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public String vratiVrednostZaIzmenu() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

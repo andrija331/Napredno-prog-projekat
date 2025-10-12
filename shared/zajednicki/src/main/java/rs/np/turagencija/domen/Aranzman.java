@@ -166,11 +166,6 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
     }
 
     @Override
-    public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public String vratiVrednostZaIzmenu() {
         return "naziv='" + naziv + "', datum='" + new java.sql.Date(datum.getTime()) + "', brojNocenja=" + brojNocenja + ", cena=" + cena + ", tipAranzmana=" + tipAranzmana.getTipID();
     }
