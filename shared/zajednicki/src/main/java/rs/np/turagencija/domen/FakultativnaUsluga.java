@@ -107,7 +107,7 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
 
     @Override
     public String vratiVrednostZaIzmenu() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "naziv='" + naziv + "', opis='" + opis + "', cena=" + cena;
     }
 
     @Override

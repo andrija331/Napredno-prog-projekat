@@ -140,7 +140,7 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
 
     @Override
     public String vratiVrednostZaIzmenu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "ime='" + ime + "', prezime='" + prezime + "', username='" + username + "', password='" + password + "'";
     }
 
 }

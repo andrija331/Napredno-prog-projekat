@@ -62,7 +62,7 @@ public class StavkaRezervacije implements ApstraktniDomenskiObjekat {
 
     @Override
     public String toString() {
-        return "StavkaRezervacije{rb=" + rb + '}';
+        return "StavkaRezervacije{" + "rb=" + rb + ", cena=" + cena + ", usluga=" + usluga + '}';
     }
 
     @Override
@@ -109,6 +109,6 @@ public class StavkaRezervacije implements ApstraktniDomenskiObjekat {
 
     @Override
     public String vratiVrednostZaIzmenu() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "rb=" + rb + ", rezervacija=" + rezervacija.getRezervacijaID() + ", cena=" + cena + ", usluga=" + usluga.getUslugaID();
     }
 }

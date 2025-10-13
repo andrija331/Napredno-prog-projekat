@@ -17,3 +17,4 @@ nb-configuration.xml
 *.iml
 Thumbs.db
 .DS_Store
+/shared/zajednicki/nbproject/

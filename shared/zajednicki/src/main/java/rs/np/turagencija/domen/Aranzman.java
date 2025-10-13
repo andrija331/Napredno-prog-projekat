@@ -111,16 +111,7 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
         if (this.brojNocenja != other.brojNocenja) {
             return false;
         }
-        if (!Objects.equals(this.naziv, other.naziv)) {
-            return false;
-        }
-        if (!Objects.equals(this.datum, other.datum)) {
-            return false;
-        }
-        if (!Objects.equals(this.cena, other.cena)) {
-            return false;
-        }
-        return Objects.equals(this.tipAranzmana, other.tipAranzmana);
+        return Objects.equals(this.naziv, other.naziv);
     }
 
     @Override
