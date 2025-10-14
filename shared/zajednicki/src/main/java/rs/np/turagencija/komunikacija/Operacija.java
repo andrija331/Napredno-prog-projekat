@@ -30,5 +30,6 @@ public enum Operacija implements Serializable {
     IZMENI_REZERVACIJU,
     DODAJ_USLUGU,
     PRETRAZI_REZERVACIJE,
+    UCITAJ_GRADOVE,
 
 }

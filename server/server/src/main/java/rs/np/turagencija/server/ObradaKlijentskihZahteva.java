@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import rs.np.turagencija.controller.Controller;
 import rs.np.turagencija.domen.Aranzman;
 import rs.np.turagencija.domen.FakultativnaUsluga;
+import rs.np.turagencija.domen.Grad;
 import rs.np.turagencija.domen.Klijent;
 import rs.np.turagencija.domen.Rezervacija;
 import rs.np.turagencija.domen.StavkaRezervacije;
@@ -112,6 +113,12 @@ public class ObradaKlijentskihZahteva extends Thread {
                         List<TipAranzmana> tipovi = Controller.getInst().ucitajTipoveAr();
 
                         odgovor.setOdgovor(tipovi);
+
+                        break;
+                    case UCITAJ_GRADOVE:
+                        List<Grad> gradovi = Controller.getInst().ucitajGradove();
+
+                        odgovor.setOdgovor(gradovi);
 
                         break;
                     case UCITAJ_REZERVACIJE:

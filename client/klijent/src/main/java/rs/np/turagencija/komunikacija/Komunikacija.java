@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import rs.np.turagencija.domen.Aranzman;
 import rs.np.turagencija.domen.FakultativnaUsluga;
+import rs.np.turagencija.domen.Grad;
 import rs.np.turagencija.domen.Klijent;
 import rs.np.turagencija.domen.Rezervacija;
 import rs.np.turagencija.domen.StavkaRezervacije;
@@ -265,6 +266,18 @@ public class Komunikacija {
         rezervacije = (List<Rezervacija>) odgovor.getOdgovor();
 
         return rezervacije;
+    }
+
+    public List<Grad> ucitajGradove() {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_GRADOVE, null);
+        List<Grad> gradovi = new ArrayList<>();
+
+        posiljalac.posalji(zahtev);
+
+        Odgovor odgovor = (Odgovor) primalac.primi();
+        gradovi = (List<Grad>) odgovor.getOdgovor();
+
+        return gradovi;
     }
 
 }

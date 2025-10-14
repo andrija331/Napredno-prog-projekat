@@ -6,6 +6,7 @@ package rs.np.turagencija.kontroleri;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLOutput;
 import java.util.List;
 import javax.swing.JOptionPane;
 import rs.np.turagencija.domen.Aranzman;
@@ -39,8 +40,11 @@ public class AranzmaniController {
     }
 
     public void pripremiFormu() {
+
         List<Aranzman> aranzmani = Komunikacija.getInstance().ucitajAranzmane();
+        System.out.println(aranzmani);
         Kordinator.getInst().setSviAranzmani(aranzmani);
+
         ModelTabeleAranzman mta = new ModelTabeleAranzman(aranzmani);
         fa.getjTableAranzmani().setModel(mta);
 
@@ -49,6 +53,7 @@ public class AranzmaniController {
         fa.getjLabelUlogovani().setText(imePrezime);
 
         List<TipAranzmana> tipovi = Komunikacija.getInstance().ucitajTipove();
+
         fa.getjComboBoxTipovi().removeAllItems();
         for (TipAranzmana t : tipovi) {
             fa.getjComboBoxTipovi().addItem(t);

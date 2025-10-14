@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import rs.np.turagencija.domen.Aranzman;
+import rs.np.turagencija.domen.Grad;
 import rs.np.turagencija.domen.TipAranzmana;
 import rs.np.turagencija.forme.DodajIzmeniAranzmanForma;
 import rs.np.turagencija.forme.FormaMod;
@@ -64,6 +65,14 @@ public class DodajIzmeniAranzmanController {
             daf.getjComboBoxTipovi().addItem(t);
 
         }
+
+        List<Grad> gradovi = Komunikacija.getInstance().ucitajGradove();
+        daf.getjComboBoxGradovi().removeAllItems();
+
+        for (Grad g : gradovi) {
+            daf.getjComboBoxGradovi().addItem(g);
+        }
+
     }
 
     private void pripremiFormuZaIzmenu() {
@@ -91,6 +100,19 @@ public class DodajIzmeniAranzmanController {
             }
         }
 
+        List<Grad> gradovi = Komunikacija.getInstance().ucitajGradove();
+        daf.getjComboBoxGradovi().removeAllItems();
+
+        for (Grad g : gradovi) {
+            daf.getjComboBoxGradovi().addItem(g);
+        }
+
+        for (Grad g : gradovi) {
+            if (g.equals(a.getGrad())) {
+                daf.getjComboBoxGradovi().setSelectedItem(g);
+            }
+        }
+
     }
 
     private void addActionListener() {
@@ -111,6 +133,7 @@ public class DodajIzmeniAranzmanController {
                 String naziv = daf.getjTextFieldNaziv().getText().trim();
                 String datumStr = daf.getjTextFieldDatum().getText().trim();
                 TipAranzmana tip = (TipAranzmana) daf.getjComboBoxTipovi().getSelectedItem();
+                Grad grad = (Grad) daf.getjComboBoxGradovi().getSelectedItem();
 
                 if (naziv.isEmpty() || datumStr.isEmpty()) {
                     JOptionPane.showMessageDialog(daf, "Neuspesno dodavanje aranzmana. Sva polja moraju biti popunjena.", "Upozorenje.", JOptionPane.WARNING_MESSAGE);
@@ -144,7 +167,7 @@ public class DodajIzmeniAranzmanController {
                     return;
                 }
 
-                Aranzman noviAranzman = new Aranzman(-1, naziv, datum, brojNocenja, cena, tip);
+                Aranzman noviAranzman = new Aranzman(-1, naziv, datum, brojNocenja, cena, tip, grad);
 
                 for (Aranzman a : Kordinator.getInst().getSviAranzmani()) {
                     if (a.equals(noviAranzman)) {
@@ -194,6 +217,7 @@ public class DodajIzmeniAranzmanController {
                 String naziv = daf.getjTextFieldNaziv().getText().trim();
                 String datumStr = daf.getjTextFieldDatum().getText().trim();
                 TipAranzmana tip = (TipAranzmana) daf.getjComboBoxTipovi().getSelectedItem();
+                Grad grad = (Grad) daf.getjComboBoxGradovi().getSelectedItem();
 
                 if (naziv.isEmpty() || datumStr.isEmpty()) {
                     JOptionPane.showMessageDialog(daf, "Neuspesna izmena aranzmana. Sva polja moraju biti popunjena.", "Upozorenje.", JOptionPane.WARNING_MESSAGE);
@@ -227,7 +251,7 @@ public class DodajIzmeniAranzmanController {
                     return;
                 }
 
-                Aranzman a = new Aranzman(id, naziv, datum, brojNocenja, cena, tip);
+                Aranzman a = new Aranzman(id, naziv, datum, brojNocenja, cena, tip, grad);
                 boolean izmenjen = false;
                 try {
                     izmenjen = Komunikacija.getInstance().izmeniAranzman(a);

@@ -19,7 +19,7 @@ import rs.np.turagencija.domen.TipAranzmana;
 public class ModelTabeleAranzman extends AbstractTableModel {
 
     private List<Aranzman> lista;
-    String[] kolone = {"ID aranzmana", "naziv", "datum", "broj nocenja", "cena", "tip aranzmana"};
+    String[] kolone = {"ID aranzmana", "naziv", "datum", "broj nocenja", "cena", "tip aranzmana", "grad"};
 
     public ModelTabeleAranzman(List<Aranzman> lista) {
         this.lista = lista;
@@ -52,6 +52,8 @@ public class ModelTabeleAranzman extends AbstractTableModel {
                 return a.getCena() + "€";
             case 5:
                 return a.getTipAranzmana().getNazivTipa();
+            case 6:
+                return a.getGrad().getNazivGrada();
 
             default:
                 throw new AssertionError();

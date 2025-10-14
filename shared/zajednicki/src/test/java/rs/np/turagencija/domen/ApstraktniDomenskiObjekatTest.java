@@ -73,7 +73,7 @@ public abstract class ApstraktniDomenskiObjekatTest {
         } else if (ado instanceof FakultativnaUsluga) {
             assertEquals("naziv,opis,cena", kolone);
         } else if (ado instanceof Aranzman) {
-            assertEquals("naziv,datum,brojNocenja,cena,tipAranzmana", kolone);
+            assertEquals("naziv,datum,brojNocenja,cena,tipAranzmana,grad", kolone);
         } else if (ado instanceof Rezervacija) {
             assertEquals("datum,ukupnacena,zaposleni,klijent,aranzman", kolone);
         } else if (ado instanceof StavkaRezervacije) {
@@ -132,7 +132,7 @@ public abstract class ApstraktniDomenskiObjekatTest {
         } else if (ado instanceof Aranzman a) {
             String expected = "naziv='" + a.getNaziv() + "', datum='" + new java.sql.Date(a.getDatum().getTime())
                     + "', brojNocenja=" + a.getBrojNocenja() + ", cena=" + a.getCena()
-                    + ", tipAranzmana=" + a.getTipAranzmana().getTipID();
+                    + ", tipAranzmana=" + a.getTipAranzmana().getTipID() + ", grad=" + a.getGrad().getGradID();
             assertEquals(expected, a.vratiVrednostZaIzmenu());
 
         } else if (ado instanceof Rezervacija r) {
@@ -175,7 +175,7 @@ public abstract class ApstraktniDomenskiObjekatTest {
 
         } else if (ado instanceof Aranzman a) {
             String expected = "'" + a.getNaziv() + "','" + new java.sql.Date(a.getDatum().getTime()) + "',"
-                    + a.getBrojNocenja() + "," + a.getCena() + "," + a.getTipAranzmana().getTipID();
+                    + a.getBrojNocenja() + "," + a.getCena() + "," + a.getTipAranzmana().getTipID() + "," + a.getGrad().getGradID();
             assertEquals(expected, vrednosti);
 
         } else if (ado instanceof Rezervacija r) {
@@ -253,6 +253,10 @@ public abstract class ApstraktniDomenskiObjekatTest {
             when(rs.getTimestamp("aranzman.datum")).thenReturn(new Timestamp(a.getDatum().getTime()));
             when(rs.getInt("tipAranzmana.tipID")).thenReturn(a.getTipAranzmana().getTipID());
             when(rs.getString("tipAranzmana.nazivTipa")).thenReturn(a.getTipAranzmana().getNazivTipa());
+            when(rs.getInt("grade.gradID")).thenReturn(a.getGrad().getGradID());
+            when(rs.getString("grad.imeGrada")).thenReturn(a.getGrad().getNazivGrada());
+            when(rs.getString("grad.drzava")).thenReturn(a.getGrad().getDrzava());
+            when(rs.getString("grad.opis")).thenReturn(a.getGrad().getOpis());
 
             var lista = a.vratiListu(rs);
             assertEquals(1, lista.size());

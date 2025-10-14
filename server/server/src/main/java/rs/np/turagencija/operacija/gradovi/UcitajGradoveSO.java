@@ -2,34 +2,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package rs.np.turagencija.operacija.aranzmani;
+package rs.np.turagencija.operacija.gradovi;
 
-import java.util.ArrayList;
 import java.util.List;
-import rs.np.turagencija.domen.Aranzman;
+import rs.np.turagencija.domen.Grad;
 import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
 
 /**
  *
  * @author KORISNIK
  */
-public class UcitajAranzmaneSO extends ApstraktnaGenerickaOperacija {
+public class UcitajGradoveSO extends ApstraktnaGenerickaOperacija {
 
-    List<Aranzman> listaAr = new ArrayList<>();
+    List<Grad> gradovi;
 
     @Override
     protected void preduslovi(Object param) throws Exception {
+
     }
 
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-        listaAr = broker.getAll(param, " JOIN tiparanzmana ON aranzman.tiparanzmana=tiparanzmana.tipid"
-                + " JOIN grad ON aranzman.grad=grad.gradID");
-
+        gradovi = broker.getAll(param, kljuc);
     }
 
-    public List<Aranzman> getListaAr() {
-        return listaAr;
+    public List<Grad> getGradovi() {
+        return gradovi;
     }
 
 }

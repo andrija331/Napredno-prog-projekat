@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import rs.np.turagencija.domen.Aranzman;
 import rs.np.turagencija.domen.FakultativnaUsluga;
+import rs.np.turagencija.domen.Grad;
 import rs.np.turagencija.domen.Klijent;
 import rs.np.turagencija.domen.Rezervacija;
 import rs.np.turagencija.domen.StavkaRezervacije;
@@ -18,6 +19,7 @@ import rs.np.turagencija.operacija.aranzmani.DodajAranzmanSO;
 import rs.np.turagencija.operacija.aranzmani.IzmeniAranzmanSO;
 import rs.np.turagencija.operacija.aranzmani.UcitajAranzmaneSO;
 import rs.np.turagencija.operacija.aranzmani.UcitajTipoveAranzmanaSO;
+import rs.np.turagencija.operacija.gradovi.UcitajGradoveSO;
 import rs.np.turagencija.operacija.klijenti.DodajKlijentaSO;
 import rs.np.turagencija.operacija.klijenti.IzmeniKlijentaSO;
 import rs.np.turagencija.operacija.klijenti.ObrisiKlijentaSO;
@@ -122,7 +124,7 @@ public class Controller {
 
     public List<Aranzman> ucitajAranzmane() throws Exception {
         UcitajAranzmaneSO ucitajAr = new UcitajAranzmaneSO();
-        ucitajAr.izvrsi(new Aranzman(), " join tiparanzmana on aranzman.tiparanzmana=tiparanzmana.tipid");
+        ucitajAr.izvrsi(new Aranzman(), null/*" join tiparanzmana on aranzman.tiparanzmana=tiparanzmana.tipid"*/);
         System.out.println("Klasa CONTROLLER :" + ucitajAr.getListaAr());
         return ucitajAr.getListaAr();
     }
@@ -243,5 +245,14 @@ public class Controller {
             }
 
         }
+    }
+
+    public List<Grad> ucitajGradove() throws Exception {
+
+        UcitajGradoveSO gradoviOp = new UcitajGradoveSO();
+        gradoviOp.izvrsi(new Grad(), null);
+        System.out.println("Klasa CONTROLLER :" + gradoviOp.getGradovi());
+        return gradoviOp.getGradovi();
+
     }
 }

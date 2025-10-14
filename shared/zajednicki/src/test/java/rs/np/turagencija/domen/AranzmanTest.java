@@ -36,7 +36,8 @@ public class AranzmanTest extends ApstraktniDomenskiObjekatTest {
     @Override
     public ApstraktniDomenskiObjekat getInstance() {
         TipAranzmana tip = new TipAranzmana(1, "Letovanje");
-        return new Aranzman(1, "Grcka", new Date(), 7, 499.99, tip);
+        Grad grad = new Grad(1, "Atina", "Grcka", "Prestonica Grcke...");
+        return new Aranzman(1, "Grcka", new Date(), 7, 499.99, tip, grad);
     }
 
     @Test

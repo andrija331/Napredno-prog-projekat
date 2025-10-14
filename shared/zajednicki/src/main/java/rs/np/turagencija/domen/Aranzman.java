@@ -24,6 +24,7 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
     private int brojNocenja;
     private Double cena;
     private TipAranzmana tipAranzmana;
+    private Grad grad;
 
     public Aranzman() {
     }
@@ -35,6 +36,16 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
         this.brojNocenja = brojNocenja;
         this.cena = cena;
         this.tipAranzmana = tipAranzmana;
+    }
+
+    public Aranzman(int aranzmanID, String naziv, Date datum, int brojNocenja, Double cena, TipAranzmana tipAranzmana, Grad grad) {
+        this.aranzmanID = aranzmanID;
+        this.naziv = naziv;
+        this.datum = datum;
+        this.brojNocenja = brojNocenja;
+        this.cena = cena;
+        this.tipAranzmana = tipAranzmana;
+        this.grad = grad;
     }
 
     public int getAranzmanID() {
@@ -85,6 +96,14 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
         this.tipAranzmana = tipAranzmana;
     }
 
+    public Grad getGrad() {
+        return grad;
+    }
+
+    public void setGrad(Grad grad) {
+        this.grad = grad;
+    }
+
     @Override
     public String toString() {
         return "naziv=" + naziv + ", brojNocenja=" + brojNocenja;
@@ -133,8 +152,13 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
             int tipID = rs.getInt("tipAranzmana.tipID");
             String nazivTipa = rs.getString("tipAranzmana.nazivTipa");
             TipAranzmana tip = new TipAranzmana(tipID, nazivTipa);
+            int gradID = rs.getInt("grad.gradID");
+            String imeGrada = rs.getString("grad.imeGrada");
+            String drzava = rs.getString("grad.drzava");
+            String opis = rs.getString("grad.opis");
+            Grad grad = new Grad(gradID, imeGrada, drzava, opis);
 
-            Aranzman a = new Aranzman(aranzmanid, naziv, datum, brNocenja, cena, tip);
+            Aranzman a = new Aranzman(aranzmanid, naziv, datum, brNocenja, cena, tip, grad);
             lista.add(a);
         }
 
@@ -143,12 +167,12 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
 
     @Override
     public String vratiKoloneZaUbacivanje() {
-        return "naziv,datum,brojNocenja,cena,tipAranzmana";
+        return "naziv,datum,brojNocenja,cena,tipAranzmana,grad";
     }
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
-        return "'" + naziv + "','" + new java.sql.Date(datum.getTime()) + "'," + brojNocenja + "," + cena + "," + tipAranzmana.getTipID();
+        return "'" + naziv + "','" + new java.sql.Date(datum.getTime()) + "'," + brojNocenja + "," + cena + "," + tipAranzmana.getTipID() + "," + grad.getGradID();
     }
 
     @Override
@@ -158,7 +182,7 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
 
     @Override
     public String vratiVrednostZaIzmenu() {
-        return "naziv='" + naziv + "', datum='" + new java.sql.Date(datum.getTime()) + "', brojNocenja=" + brojNocenja + ", cena=" + cena + ", tipAranzmana=" + tipAranzmana.getTipID();
+        return "naziv='" + naziv + "', datum='" + new java.sql.Date(datum.getTime()) + "', brojNocenja=" + brojNocenja + ", cena=" + cena + ", tipAranzmana=" + tipAranzmana.getTipID() + ", grad=" + grad.getGradID();
     }
 
 }

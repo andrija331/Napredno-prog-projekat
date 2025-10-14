@@ -23,7 +23,7 @@ public class DbConnectionFactory {
             if (connection == null || connection.isClosed()) {
                 // String url = Konfiguracija.getInstance().getProperty("url");
                 String url2 = "jdbc:mysql://localhost:3306/tur_agencija";
-                String dbName = System.getProperty("DB_NAME", "tur_agencija");
+                String dbName = System.getProperty("DB_NAME", "turisticka_agencija");
                 String url = "jdbc:mysql://localhost:3306/" + dbName;
                 //String username = Konfiguracija.getInstance().getProperty("username");
                 //String password = Konfiguracija.getInstance().getProperty("password");
