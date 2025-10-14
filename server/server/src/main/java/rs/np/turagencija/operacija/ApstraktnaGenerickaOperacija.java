@@ -5,6 +5,7 @@
 package rs.np.turagencija.operacija;
 
 import rs.np.turagencija.repository.Repository;
+import rs.np.turagencija.repository.db.DbConnectionFactory;
 import rs.np.turagencija.repository.db.DbRepository;
 import rs.np.turagencija.repository.db.impl.DbRepositoryGeneric;
 
@@ -41,12 +42,24 @@ public abstract class ApstraktnaGenerickaOperacija {
         ((DbRepository) broker).connect();
     }
 
+    /*
     private void potvrdiTransakciju() throws Exception {
         ((DbRepository) broker).commit();
     }
 
     private void ponistiTransakciju() throws Exception {
         ((DbRepository) broker).rollback();
+    }*/
+    private void potvrdiTransakciju() throws Exception {
+        if (!DbConnectionFactory.getInst().isTestMode()) {
+            ((DbRepository) broker).commit();
+        }
+    }
+
+    private void ponistiTransakciju() throws Exception {
+        if (!DbConnectionFactory.getInst().isTestMode()) {
+            ((DbRepository) broker).rollback();
+        }
     }
 
     private void ugasiKonekciju() throws Exception {

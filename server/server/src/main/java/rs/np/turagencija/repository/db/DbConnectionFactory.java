@@ -17,18 +17,19 @@ public class DbConnectionFactory {
 
     private static DbConnectionFactory instance;
     private Connection connection;
+    private boolean testMode = false;
 
     private DbConnectionFactory() {
         try {
             if (connection == null || connection.isClosed()) {
-                // String url = Konfiguracija.getInstance().getProperty("url");
-                String url2 = "jdbc:mysql://localhost:3306/tur_agencija";
-                String dbName = System.getProperty("DB_NAME", "turisticka_agencija");
-                String url = "jdbc:mysql://localhost:3306/" + dbName;
-                //String username = Konfiguracija.getInstance().getProperty("username");
-                //String password = Konfiguracija.getInstance().getProperty("password");
+
+                String url = "jdbc:mysql://localhost:3306/turisticka_agencija";
+                // String dbName = System.getProperty("DB_NAME", "turisticka_agencija");
+                // String url = "jdbc:mysql://localhost:3306/" + dbName;
+
                 connection = DriverManager.getConnection(url, "root", "");
                 connection.setAutoCommit(false);
+                System.out.println("CONNECTION HASH: " + connection.hashCode());
             }
 
         } catch (SQLException ex) {
@@ -45,6 +46,18 @@ public class DbConnectionFactory {
 
     public Connection getConnection() {
         return connection;
+    }
+
+    public void setTestConnection(Connection testConnection) {
+        this.connection = testConnection;
+    }
+
+    public void setTestMode(boolean testMode) {
+        this.testMode = testMode;
+    }
+
+    public boolean isTestMode() {
+        return testMode;
     }
 
 }
