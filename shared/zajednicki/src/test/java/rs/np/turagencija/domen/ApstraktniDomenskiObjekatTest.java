@@ -54,6 +54,8 @@ public abstract class ApstraktniDomenskiObjekatTest {
             assertEquals("rezervacija", naziv);
         } else if (ado instanceof StavkaRezervacije) {
             assertEquals("stavkaRezervacije", naziv);
+        } else if (ado instanceof Grad) {
+            assertEquals("grad", naziv);
         } else {
             fail("Nepoznata klasa za testiranje naziva tabele!");
         }
@@ -78,6 +80,8 @@ public abstract class ApstraktniDomenskiObjekatTest {
             assertEquals("datum,ukupnacena,zaposleni,klijent,aranzman", kolone);
         } else if (ado instanceof StavkaRezervacije) {
             assertEquals("rb,rezervacija,cena,usluga", kolone);
+        } else if (ado instanceof Grad) {
+            assertEquals("imeGrada,drzava,opis", kolone);
         } else {
             fail("Nepoznata klasa za testiranje kolona!");
         }
@@ -100,6 +104,8 @@ public abstract class ApstraktniDomenskiObjekatTest {
             assertEquals("aranzman.aranzmanID=" + a.getAranzmanID(), pk);
         } else if (ado instanceof Rezervacija r) {
             assertEquals("rezervacijaID=" + r.getRezervacijaID(), pk);
+        } else if (ado instanceof Grad g) {
+            assertEquals("grad.gradID=" + g.getGradID(), pk);
         } else if (ado instanceof StavkaRezervacije s) {
             assertEquals("rb=" + s.getRb() + " AND stavkarezervacije.rezervacija=" + s.getRezervacija().getRezervacijaID(), pk);
         } else {
@@ -134,6 +140,10 @@ public abstract class ApstraktniDomenskiObjekatTest {
                     + "', brojNocenja=" + a.getBrojNocenja() + ", cena=" + a.getCena()
                     + ", tipAranzmana=" + a.getTipAranzmana().getTipID() + ", grad=" + a.getGrad().getGradID();
             assertEquals(expected, a.vratiVrednostZaIzmenu());
+        } else if (ado instanceof Grad g) {
+            String expected = "imeGrada='" + g.getNazivGrada() + "', drzava='" + g.getDrzava() + "', opis='"
+                    + g.getOpis() + "'";
+            assertEquals(expected, g.vratiVrednostZaIzmenu());
 
         } else if (ado instanceof Rezervacija r) {
             String expected = "ukupnaCena=" + r.getUkupnaCena() + ", datum='" + new java.sql.Date(r.getDatum().getTime())
@@ -171,6 +181,10 @@ public abstract class ApstraktniDomenskiObjekatTest {
 
         } else if (ado instanceof FakultativnaUsluga f) {
             String expected = "'" + f.getNaziv() + "','" + f.getOpis() + "'," + f.getCena();
+            assertEquals(expected, vrednosti);
+
+        } else if (ado instanceof Grad g) {
+            String expected = "'" + g.getNazivGrada() + "','" + g.getDrzava() + "','" + g.getOpis() + "'";
             assertEquals(expected, vrednosti);
 
         } else if (ado instanceof Aranzman a) {
@@ -244,6 +258,18 @@ public abstract class ApstraktniDomenskiObjekatTest {
             assertEquals(1, lista.size());
             FakultativnaUsluga rez = (FakultativnaUsluga) lista.get(0);
             assertEquals(f.getNaziv(), rez.getNaziv());
+        } else if (ado instanceof Grad g) {
+            when(rs.next()).thenReturn(true, false);
+
+            when(rs.getInt("gradID")).thenReturn(g.getGradID());
+            when(rs.getString("grad.imeGrada")).thenReturn(g.getNazivGrada());
+            when(rs.getString("grad.drzava")).thenReturn(g.getDrzava());
+            when(rs.getString("grad.opis")).thenReturn(g.getOpis());
+
+            var lista = g.vratiListu(rs);
+            assertEquals(1, lista.size());
+            Grad rez = (Grad) lista.get(0);
+            assertEquals(g.getNazivGrada(), rez.getNazivGrada());
         } else if (ado instanceof Aranzman a) {
             when(rs.next()).thenReturn(true, false);
             when(rs.getInt("aranzmanID")).thenReturn(a.getAranzmanID());
