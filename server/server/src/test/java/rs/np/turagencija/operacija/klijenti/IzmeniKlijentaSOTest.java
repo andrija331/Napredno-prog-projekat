@@ -18,7 +18,7 @@ import rs.np.turagencija.repository.db.DbConnectionFactory;
  *
  * @author KORISNIK
  */
-public class DodajKlijentaSOTest {
+public class IzmeniKlijentaSOTest {
 
     private Connection connection;
 
@@ -28,44 +28,43 @@ public class DodajKlijentaSOTest {
         connection.setAutoCommit(false);
         DbConnectionFactory.getInst().setTestConnection(connection);
 
-        Statement st = connection.createStatement();
-        st.executeUpdate("DELETE FROM klijent");
-        st.close();
-
+        try ( Statement st = connection.createStatement()) {
+            st.executeUpdate("DELETE FROM klijent");
+            st.executeUpdate("INSERT INTO klijent (ime, prezime, email, brojTelefona) VALUES ('Stari', 'Klijent', 'marko@mail.com', 123456)");
+        }
     }
 
     @AfterEach
     public void tearDown() throws Exception {
         connection.close();
-
     }
 
     @Test
-    public void testDodajKlijentaUBazu() throws Exception {
+    public void testIzmeniKlijenta() throws Exception {
+        // preuzmi ID klijenta
+        int id = 0;
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery("SELECT klijentID FROM klijent WHERE ime='Stari'");
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+
         Klijent k = new Klijent();
-        k.setIme("TestIme");
-        k.setPrezime("TestPrezime");
+        k.setKlijentID(id);
+        k.setIme("Novi");
+        k.setPrezime("Klijent");
 
-        DodajKlijentaSO so = new DodajKlijentaSO();
-
+        IzmeniKlijentaSO so = new IzmeniKlijentaSO();
         so.izvrsi(k, null);
 
-        Statement st = connection.createStatement();
-        ResultSet rsUkupnoKlijenata = st.executeQuery("SELECT COUNT(*) FROM klijent");
+        PreparedStatement ps = connection.prepareStatement("SELECT ime FROM klijent WHERE klijentID=?");
+        ps.setInt(1, id);
+        ResultSet rs2 = ps.executeQuery();
 
-        assertTrue(rsUkupnoKlijenata.next());
-        assertEquals(1, rsUkupnoKlijenata.getInt(1), "U bazi ne postoji tačno jedan klijent — moguće dupliranje ili višak podataka.");
+        assertTrue(rs2.next());
+        assertEquals("Novi", rs2.getString("ime"), "Ime klijenta nije izmenjeno u bazi.");
+        assertTrue(so.izmenjen());
 
-        rsUkupnoKlijenata.close();
-        st.close();
-
-        PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) FROM klijent WHERE ime=? AND prezime=?");
-        ps.setString(1, "TestIme");
-        ps.setString(2, "TestPrezime");
-        ResultSet rs = ps.executeQuery();
-
-        assertTrue(rs.next());
-        assertEquals(1, rs.getInt(1), "Klijent nije uspešno dodat u bazu.");
         rs.close();
         ps.close();
     }

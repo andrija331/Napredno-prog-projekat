@@ -42,14 +42,19 @@ public class ObrisiKlijentaSO extends ApstraktnaGenerickaOperacija {
 
     private void obrisiKlijentoveRezervacije(Klijent klijent) throws Exception {
         List<Rezervacija> sveRezervacije = Controller.getInst().ucitajRezervacije();
+        System.out.println(" Sve Rezervacije" + sveRezervacije);
 
         List<Rezervacija> rezervacijeZaBrisanje = new ArrayList<>();
         for (Rezervacija r : sveRezervacije) {
+            System.out.println("Klijent iz liste svih rezervacija: " + r.getKlijent());
+            System.out.println("Klijent za brisanje: " + klijent);
             if (r.getKlijent().equals(klijent)) {
                 rezervacijeZaBrisanje.add(r);
             }
 
         }
+        System.out.println("Rezervacije za brisanje" + rezervacijeZaBrisanje);
+
         for (Rezervacija r : rezervacijeZaBrisanje) {
             Controller.getInst().obrisiRezervaciju(r);
         }
