@@ -23,9 +23,11 @@ public class DbConnectionFactory {
             if (connection == null || connection.isClosed()) {
                 // String url = Konfiguracija.getInstance().getProperty("url");
                 String url2 = "jdbc:mysql://localhost:3306/tur_agencija";
+                String dbName = System.getProperty("DB_NAME", "tur_agencija");
+                String url = "jdbc:mysql://localhost:3306/" + dbName;
                 //String username = Konfiguracija.getInstance().getProperty("username");
                 //String password = Konfiguracija.getInstance().getProperty("password");
-                connection = DriverManager.getConnection(url2, "root", "");
+                connection = DriverManager.getConnection(url, "root", "");
                 connection.setAutoCommit(false);
             }
 
