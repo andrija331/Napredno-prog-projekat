@@ -26,16 +26,18 @@ public class DodajKlijentaSOTest {
     public void setUp() throws Exception {
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/turisticka_agencija_test", "root", "");
         connection.setAutoCommit(false);
+        DbConnectionFactory.getInst().setTestConnection(connection);
 
-        DbConnectionFactory factory = DbConnectionFactory.getInst();
-        factory.setTestMode(true);
-        factory.setTestConnection(connection);
+        Statement st = connection.createStatement();
+        st.executeUpdate("DELETE FROM klijent");
+        st.close();
 
     }
 
     @AfterEach
     public void tearDown() throws Exception {
-        connection.rollback();
+        connection.close();
+
     }
 
     @Test
@@ -54,7 +56,7 @@ public class DodajKlijentaSOTest {
         ResultSet rs = ps.executeQuery();
 
         assertTrue(rs.next());
-        assertTrue(rs.getInt(1) >= 1);
+        assertEquals(1, rs.getInt(1), "Klijent nije uspešno dodat u bazu.");
         rs.close();
         ps.close();
     }

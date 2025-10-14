@@ -42,24 +42,12 @@ public abstract class ApstraktnaGenerickaOperacija {
         ((DbRepository) broker).connect();
     }
 
-    /*
     private void potvrdiTransakciju() throws Exception {
         ((DbRepository) broker).commit();
     }
 
     private void ponistiTransakciju() throws Exception {
         ((DbRepository) broker).rollback();
-    }*/
-    private void potvrdiTransakciju() throws Exception {
-        if (!DbConnectionFactory.getInst().isTestMode()) {
-            ((DbRepository) broker).commit();
-        }
-    }
-
-    private void ponistiTransakciju() throws Exception {
-        if (!DbConnectionFactory.getInst().isTestMode()) {
-            ((DbRepository) broker).rollback();
-        }
     }
 
     private void ugasiKonekciju() throws Exception {

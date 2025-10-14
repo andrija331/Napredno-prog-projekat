@@ -17,7 +17,6 @@ public class DbConnectionFactory {
 
     private static DbConnectionFactory instance;
     private Connection connection;
-    private boolean testMode = false;
 
     private DbConnectionFactory() {
         try {
@@ -50,14 +49,6 @@ public class DbConnectionFactory {
 
     public void setTestConnection(Connection testConnection) {
         this.connection = testConnection;
-    }
-
-    public void setTestMode(boolean testMode) {
-        this.testMode = testMode;
-    }
-
-    public boolean isTestMode() {
-        return testMode;
     }
 
 }
