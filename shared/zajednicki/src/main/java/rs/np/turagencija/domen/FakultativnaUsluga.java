@@ -68,6 +68,30 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FakultativnaUsluga other = (FakultativnaUsluga) obj;
+        if (Double.doubleToLongBits(this.cena) != Double.doubleToLongBits(other.cena)) {
+            return false;
+        }
+        return Objects.equals(this.naziv, other.naziv);
+    }
+
+    @Override
     public String vratiNazivTabele() {
         return "fakultativnausluga";
     }
@@ -108,30 +132,6 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
     @Override
     public String vratiVrednostZaIzmenu() {
         return "naziv='" + naziv + "', opis='" + opis + "', cena=" + cena;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final FakultativnaUsluga other = (FakultativnaUsluga) obj;
-        if (Double.doubleToLongBits(this.cena) != Double.doubleToLongBits(other.cena)) {
-            return false;
-        }
-        return Objects.equals(this.naziv, other.naziv);
     }
 
 }

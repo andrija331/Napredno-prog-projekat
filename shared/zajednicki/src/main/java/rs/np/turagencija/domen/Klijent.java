@@ -75,9 +75,10 @@ public class Klijent implements ApstraktniDomenskiObjekat {
     }
 
     /**
-     * Vraca tekstualni prikaz klijenta u formatu: ime, prezime i email.
+     * Vraca formatiran string sa osnovnim podacima o klijentu.
      *
-     * @return formatiran string sa osnovnim podacima o klijentu
+     * @return Sting sa podacima o klijentu u formatu :ime='Ime',
+     * prezime='Prezime', email='Email'
      */
     @Override
     public String toString() {
@@ -92,63 +93,82 @@ public class Klijent implements ApstraktniDomenskiObjekat {
     }
 
     /**
-     * @param KlijentID postavlja jedinstveni identifikator klijenta
+     * Postavlja jedinstveni identifikator klijenta
+     *
+     * @param KlijentID KlijentID- jedinstveni identifikator klijenta kao
+     * Integer
      */
     public void setKlijentID(int KlijentID) {
         this.klijentID = KlijentID;
     }
 
     /**
-     * @return ime klijenta
+     * Vraca ime klijenta
+     *
+     * @return ime klijenta kao String
      */
     public String getIme() {
         return ime;
     }
 
     /**
-     * @param ime postavlja ime klijenta
+     * Postavlja novo ime klijenta
+     *
+     * @param ime Ime klijenta kao String
      */
     public void setIme(String ime) {
         this.ime = ime;
     }
 
     /**
-     * @return prezime klijenta
+     * Vraca prezime klijenta
+     *
+     * @return prezime klijenta kao String
      */
     public String getPrezime() {
         return prezime;
     }
 
     /**
-     * @param prezime postavlja prezime klijenta
+     * Postavlja novo prezime klijenta
+     *
+     * @param prezime Prezime klijenta kao String
      */
     public void setPrezime(String prezime) {
         this.prezime = prezime;
     }
 
     /**
-     * @return email klijenta
+     * Vraca email klijenta
+     *
+     * @return email klijenta kao String
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * @param email postavlja email klijenta
+     * Postavlja novi email Klijenta
+     *
+     * @param email Email klijenta kao String
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
-     * @return broj telefona klijenta
+     * Vraca broj telefona klijenta
+     *
+     * @return broj telefona klijenta kao Long
      */
     public long getBrojTelefona() {
         return brojTelefona;
     }
 
     /**
-     * @param brojTelefona postavlja broj telefona klijenta
+     * Postavlja novi broj telefona klijenta
+     *
+     * @param brojTelefona broj telefona klijenta kao Long
      */
     public void setBrojTelefona(long brojTelefona) {
         this.brojTelefona = brojTelefona;
@@ -169,7 +189,8 @@ public class Klijent implements ApstraktniDomenskiObjekat {
      * Poredi dva objekta klase {@code Klijent} na osnovu email adrese.
      *
      * @param obj objekat sa kojim se poredi
-     * @return {@code true} ako su email adrese iste, u suprotnom {@code false}
+     * @return {@code true} ako je uneti objeakt razlicit od null, ako je klase
+     * Klijent i ako su email adrese iste, u suprotnom {@code false}
      */
     @Override
     public boolean equals(Object obj) {
