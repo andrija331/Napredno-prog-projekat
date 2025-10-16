@@ -8,11 +8,24 @@ import rs.np.turagencija.domen.Klijent;
 import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
 
 /**
+ * Sistemska operacija koja dodaje novog klijenta u bazu podataka.
+ * <p>
+ * Pre izvrsenja proverava se da li je prosledjeni objekat validan i da li je
+ * instanca klase {@link Klijent}. Ukoliko nije, baca se izuzetak.
+ * <p>
  *
- * @author KORISNIK
+ * @author Andrija Panovic
  */
 public class DodajKlijentaSO extends ApstraktnaGenerickaOperacija {
 
+    /**
+     * Proverava da li je prosledjeni parametar razlicit on null i odgovarajuce
+     * klase.
+     *
+     * @param param objekat koji treba da bude instanca klase {@link Klijent}
+     * @throws Exception ako je parametar {@code null} ili nije instanca klase
+     * {@code Klijent}
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
         if (param == null || !(param instanceof Klijent)) {
@@ -20,6 +33,14 @@ public class DodajKlijentaSO extends ApstraktnaGenerickaOperacija {
         }
     }
 
+    /**
+     * Dodaje klijenta u bazu podataka.
+     *
+     * @param param objekat tipa {@link Klijent} koji se dodaje
+     * @param kljuc dodatni parametar (nije potreban za ovu operaciju, moze biti
+     * null)
+     * @throws Exception ako dodavanje klijenta ne uspe
+     */
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         broker.add((Klijent) param);

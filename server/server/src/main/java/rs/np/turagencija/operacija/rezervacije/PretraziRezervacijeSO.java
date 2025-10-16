@@ -11,18 +11,39 @@ import rs.np.turagencija.domen.StavkaRezervacije;
 import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
 
 /**
+ * Sistemska operacija koja pretrazuje rezervacije na osnovu prosledjenog kljuca
+ * (npr. email adrese klijenta).
+ * <p>
+ * Operacija ucitava sve rezervacije koje pripadaju klijentu sa zadatom email
+ * adresom, zajedno sa njihovim stavkama.
  *
- * @author KORISNIK
+ * @author Andrija Panovic
  */
 public class PretraziRezervacijeSO extends ApstraktnaGenerickaOperacija {
 
+    /**
+     * Lista rezervacija pronadjenih u bazi.
+     */
     private List<Rezervacija> lista;
 
+    /**
+     * Ova operacija nema definisane preduslove.
+     *
+     * @param param ne koristi se u ovoj implementaciji
+     */
     @Override
     protected void preduslovi(Object param) throws Exception {
 
     }
 
+    /**
+     * Pretrazuje rezervacije po zadatom kljucu i ucitava pripadajuce stavke.
+     *
+     * @param param instanca klase {@link Rezervacija} (koristi se kao tip)
+     * @param kljuc Sting koji sadrzi parametar po kom se rezervacije pretrazuju
+     * (npr. email adresa klijenta)
+     * @throws Exception ako dodje do greske prilikom pretrage
+     */
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         lista = broker.getAll(param, " JOIN zaposleni ON rezervacija.zaposleni=zaposleni.zaposleniID"
@@ -40,10 +61,20 @@ public class PretraziRezervacijeSO extends ApstraktnaGenerickaOperacija {
         }
     }
 
+    /**
+     * Vraca listu rezervacija pronadjenih u bazi.
+     *
+     * @return lista rezervacija
+     */
     public List<Rezervacija> getLista() {
         return lista;
     }
 
+    /**
+     * Postavlja listu rezervacija.
+     *
+     * @param lista lista objekata tipa {@link Rezervacija}
+     */
     public void setLista(List<Rezervacija> lista) {
         this.lista = lista;
     }
