@@ -91,4 +91,18 @@ public class IzmeniAranzmanSOTest {
         assertTrue(so.izmenjen());
     }
 
+    @Test
+    public void testIzmeniKlijentaParametarNull() {
+        IzmeniAranzmanSO so = new IzmeniAranzmanSO();
+        Exception e = assertThrows(Exception.class, () -> so.izvrsi(null, null));
+        assertEquals("Prosledjeni objekat nije instanca klase Aranzman ili je null.", e.getMessage());
+    }
+
+    @Test
+    public void testIzmeniKlijentaPogresanTipObjekta() {
+        IzmeniAranzmanSO so = new IzmeniAranzmanSO();
+        Exception e = assertThrows(Exception.class, () -> so.izvrsi(new Grad(), null));
+        assertEquals("Prosledjeni objekat nije instanca klase Aranzman ili je null.", e.getMessage());
+    }
+
 }

@@ -29,6 +29,7 @@ public class PretraziRezervacijeSO extends ApstraktnaGenerickaOperacija {
                 + " JOIN klijent ON rezervacija.klijent=klijent.klijentID"
                 + " JOIN aranzman ON rezervacija.aranzman=aranzman.aranzmanID"
                 + " JOIN tiparanzmana ON aranzman.tipAranzmana=tipAranzmana.tipID"
+                + " JOIN grad ON aranzman.grad=grad.gradID"
                 + " WHERE klijent.email=" + "'" + kljuc + "'");
 
         for (Rezervacija r : lista) {

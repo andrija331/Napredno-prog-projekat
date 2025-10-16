@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import rs.np.turagencija.domen.Grad;
 import rs.np.turagencija.domen.Klijent;
 import rs.np.turagencija.repository.db.DbConnectionFactory;
 
@@ -67,5 +68,19 @@ public class IzmeniKlijentaSOTest {
 
         rs.close();
         ps.close();
+    }
+
+    @Test
+    public void testIzmeniKlijentaParametarNull() {
+        IzmeniKlijentaSO so = new IzmeniKlijentaSO();
+        Exception e = assertThrows(Exception.class, () -> so.izvrsi(null, null));
+        assertEquals("Prosledjeni objekat nije instanca klase Klijent ili je null.", e.getMessage());
+    }
+
+    @Test
+    public void testIzmeniKlijentaPogresanTipObjekta() {
+        IzmeniKlijentaSO so = new IzmeniKlijentaSO();
+        Exception e = assertThrows(Exception.class, () -> so.izvrsi(new Grad(), null));
+        assertEquals("Prosledjeni objekat nije instanca klase Klijent ili je null.", e.getMessage());
     }
 }

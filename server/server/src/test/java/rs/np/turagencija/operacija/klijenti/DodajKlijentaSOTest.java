@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import rs.np.turagencija.domen.Grad;
 import rs.np.turagencija.domen.Klijent;
 import rs.np.turagencija.repository.db.DbConnectionFactory;
 
@@ -54,7 +55,7 @@ public class DodajKlijentaSOTest {
         ResultSet rsUkupnoKlijenata = st.executeQuery("SELECT COUNT(*) FROM klijent");
 
         assertTrue(rsUkupnoKlijenata.next());
-        assertEquals(1, rsUkupnoKlijenata.getInt(1), "U bazi ne postoji tačno jedan klijent — moguće dupliranje ili višak podataka.");
+        assertEquals(1, rsUkupnoKlijenata.getInt(1), "U bazi ne postoji tačno jedan klijent — moguce dupliranje ili visak podataka.");
 
         rsUkupnoKlijenata.close();
         st.close();
@@ -68,5 +69,19 @@ public class DodajKlijentaSOTest {
         assertEquals(1, rs.getInt(1), "Klijent nije uspešno dodat u bazu.");
         rs.close();
         ps.close();
+    }
+
+    @Test
+    public void testDodajKlijentaParametarNull() {
+        DodajKlijentaSO so = new DodajKlijentaSO();
+        Exception e = assertThrows(java.lang.Exception.class, () -> so.izvrsi(null, null));
+        assertEquals(e.getMessage(), "Prosledjeni objekat nije instanca klase Klijent ili je null.");
+    }
+
+    @Test
+    public void testDodajKlijentaPogresanTipObjekta() {
+        DodajKlijentaSO so = new DodajKlijentaSO();
+        Exception e = assertThrows(Exception.class, () -> so.izvrsi(new Grad(), null));
+        assertEquals("Prosledjeni objekat nije instanca klase Klijent ili je null.", e.getMessage());
     }
 }

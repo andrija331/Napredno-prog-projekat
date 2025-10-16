@@ -81,4 +81,18 @@ public class DodajAranzmanSOTest {
         ps.close();
     }
 
+    @Test
+    public void testDodajAranzmanParametarNull() {
+        DodajAranzmanSO so = new DodajAranzmanSO();
+        Exception e = assertThrows(java.lang.Exception.class, () -> so.izvrsi(null, null));
+        assertEquals(e.getMessage(), "Prosledjeni objekat nije instanca klase Aranzman ili je null.");
+    }
+
+    @Test
+    public void testDodajAranzmanPogresanTipObjekta() {
+        DodajAranzmanSO so = new DodajAranzmanSO();
+        Exception e = assertThrows(Exception.class, () -> so.izvrsi(new Grad(), null));
+        assertEquals("Prosledjeni objekat nije instanca klase Aranzman ili je null.", e.getMessage());
+    }
+
 }
