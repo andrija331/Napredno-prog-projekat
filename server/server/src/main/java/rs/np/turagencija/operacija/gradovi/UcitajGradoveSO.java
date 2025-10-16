@@ -10,7 +10,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
 
 /**
  * Sistemska operacija koja ucitava sve gradove iz baze podataka.
- * <p>
+ *
  * Operacija ne zahteva dodatne parametre ni preduslove. Nakon uspesnog
  * izvrsenja, lista gradova moze se preuzeti pomocu metode
  * {@link #getGradovi()}.

@@ -11,7 +11,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
 /**
  * Sistemska operacija koja ucitava sve stavke jedne rezervacije iz baze
  * podataka.
- * <p>
+ *
  * Operacija koristi ID rezervacije i pomocu JOIN upita ucitava i pripadajuce
  * fakultativne usluge.
  *

@@ -13,7 +13,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
  * <p>
  * Pre izvrsenja proverava se da li je prosledjeni objekat validan i da li je
  * instanca klase {@link Aranzman}. Ukoliko nije, baca se izuzetak.
- * <p>
+ * </p>
  * Nakon uspesnog izvrsenja, atribut {@code uspesnoIzmenjen} postavlja se na
  * {@code true}.
  *

@@ -15,7 +15,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
  * Operacija proverava da li korisnik sa unetim kredencijalima (korisnicko ime i
  * lozinka) postoji u bazi podataka. Ukoliko postoji, vraca ga iz baze i
  * postavlja u atribut {@code zaposleni}.
- * <p>
+ * </p>
  * Ako korisnik ne postoji ili su kredencijali pogresni, atribut
  * {@code zaposleni} ostaje {@code null}.
  *
@@ -47,7 +47,7 @@ public class LoginOperacija extends ApstraktnaGenerickaOperacija {
     /**
      * Ucitava sve zaposlene iz baze i proverava da li se neki od njih poklapa
      * sa prosledjenim kredencijalima (korisnicko ime i lozinka).
-     * <p>
+     *
      * Ako se pronadje odgovarajuci zaposleni, on se postavlja u atribut
      * {@code zaposleni}.
      *

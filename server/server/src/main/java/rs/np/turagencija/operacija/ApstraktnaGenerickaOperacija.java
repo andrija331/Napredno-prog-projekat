@@ -14,7 +14,7 @@ import rs.np.turagencija.repository.db.impl.DbRepositoryGeneric;
  * <p>
  * Svaka konkretna sistemska operacija nasledjuje ovu klasu i implementira
  * metode preduslovi i izvrsiOperaciju.
- * <p>
+ * </p>
  * Proces izvrsenja obuhvata:
  * <ol>
  * <li>Proveru preduslova</li>
@@ -43,7 +43,7 @@ public abstract class ApstraktnaGenerickaOperacija {
 
     /**
      * Metoda sablona koja definise tok izvrsavanja svake sistemske operacije.
-     * <p>
+     *
      * Redosled koraka:
      * <ol>
      * <li>Proverava preduslove pomocu

@@ -12,7 +12,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
 /**
  * Sistemska operacija koja dodaje novu rezervaciju u bazu podataka zajedno sa
  * svim njenim stavkama.
- * <p>
+ *
  * Pre izvrsenja proverava se da li je prosledjeni objekat validan i da li je
  * instanca klase {@link Rezervacija}. Ako nije, baca se izuzetak. Nakon
  * uspesnog dodavanja rezervacije, sve njene stavke se dodaju u bazu.

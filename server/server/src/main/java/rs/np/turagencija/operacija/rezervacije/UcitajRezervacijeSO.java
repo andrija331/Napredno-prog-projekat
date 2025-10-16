@@ -13,7 +13,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
 /**
  * Sistemska operacija koja ucitava sve rezervacije iz baze podataka zajedno sa
  * njihovim stavkama.
- * <p>
+ *
  * Operacija ne zahteva dodatne parametre ni preduslove. Svaka rezervacija
  * sadrzi reference na klijenta, zaposlenog, aranzman i tip aranzmana.
  *

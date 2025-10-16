@@ -45,7 +45,7 @@ public class ObrisiRezervacijuSO extends ApstraktnaGenerickaOperacija {
      *
      * Prvo se poziva pomocna metoda obrisiStavke, koja na osnovu prosledjene
      * Rezervacije pronalazi sve stavke te rezervacije i brise ih. Nakon
-     * brisanja stavki brise se Rezervacija
+     * brisanja stavki brise se Rezervacija.
      *
      * @param param objekat tipa {@link Rezervacija} koji se brise
      * @param kljuc dodatni parametar (nije potreban u ovoj operaciji, moze biti

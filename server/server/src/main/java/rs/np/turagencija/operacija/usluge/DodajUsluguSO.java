@@ -12,7 +12,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
  * <p>
  * Pre izvrsenja proverava se da li je prosledjeni objekat validan i da li je
  * instanca klase {@link FakultativnaUsluga}. Ukoliko nije, baca se izuzetak.
- * <p>
+ * </p>
  * Nakon uspesnog izvrsenja, nova usluga se cuva u bazi podataka.
  *
  * @author Andrija Panovic

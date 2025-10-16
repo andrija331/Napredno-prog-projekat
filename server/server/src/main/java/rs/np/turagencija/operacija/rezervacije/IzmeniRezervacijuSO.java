@@ -16,7 +16,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
  * <p>
  * Prilikom izmene, sve stare stavke rezervacije se brisu, pa se nakon toga
  * ubacuju sve nove stavke.
- * <p>
+ * </p>
  * Ako je operacija uspesno izvrsena, atribut {@code uspesnoIzmenjeno} postavlja
  * se na {@code true}.
  *
@@ -49,6 +49,7 @@ public class IzmeniRezervacijuSO extends ApstraktnaGenerickaOperacija {
      * Azurira rezervaciju i sve njene stavke u bazi podataka.
      * <p>
      * Prvo se brisu stare stavke, a zatim se dodaju nove.
+     * </p>
      *
      * @param param objekat tipa {@link Rezervacija} koji sadrzi nove podatke
      * @param kljuc dodatni parametar (nije potreban u ovoj operaciji, moze biti

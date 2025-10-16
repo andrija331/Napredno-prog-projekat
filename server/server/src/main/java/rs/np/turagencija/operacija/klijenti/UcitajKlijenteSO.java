@@ -10,7 +10,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
 
 /**
  * Sistemska operacija koja ucitava sve klijente iz baze podataka.
- * <p>
+ *
  * Operacija ne zahteva dodatne parametre ni preduslove. Nakon uspesnog
  * izvrsenja, lista klijenata moze se preuzeti pomocu metode
  * {@link #getKlijenti()}.

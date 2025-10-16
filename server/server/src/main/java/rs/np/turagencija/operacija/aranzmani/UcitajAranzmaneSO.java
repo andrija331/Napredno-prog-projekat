@@ -14,7 +14,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
  * <p>
  * Aranzmani se ucitavaju zajedno sa pripadajucim tipovima aranzmana i gradovima
  * pomocu SQL JOIN upita.
- * <p>
+ * </p>
  * Nakon uspesnog izvrsenja, lista aranzmana moze se preuzeti pomocu metode
  * {@link #getListaAr()}.
  *

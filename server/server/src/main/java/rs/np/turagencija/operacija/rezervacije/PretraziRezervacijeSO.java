@@ -13,7 +13,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
 /**
  * Sistemska operacija koja pretrazuje rezervacije na osnovu prosledjenog kljuca
  * (npr. email adrese klijenta).
- * <p>
+ *
  * Operacija ucitava sve rezervacije koje pripadaju klijentu sa zadatom email
  * adresom, zajedno sa njihovim stavkama.
  *

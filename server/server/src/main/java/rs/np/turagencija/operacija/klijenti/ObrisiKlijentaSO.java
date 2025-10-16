@@ -14,7 +14,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
 /**
  * Sistemska operacija koja brise klijenta iz baze podataka zajedno sa svim
  * njegovim rezervacijama.
- * <p>
+ *
  *
  * Tokom brisanja, prvo se pronalaze i uklanjaju sve rezervacije vezane za datog
  * klijenta, a zatim se brise sam klijent iz baze.

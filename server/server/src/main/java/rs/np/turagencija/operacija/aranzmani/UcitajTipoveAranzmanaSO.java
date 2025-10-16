@@ -14,7 +14,7 @@ import rs.np.turagencija.operacija.ApstraktnaGenerickaOperacija;
  * <p>
  * Operacija ne zahteva dodatne parametre ni preduslove. Nakon uspesnog
  * izvrsenja, lista tipova aranzmana moze se preuzeti pomocu metode
- * {@link #getTipovi()}.
+ * {@link #getTipovi()}.</p>
  *
  * @author Andrija Panovic
  */
