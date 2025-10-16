@@ -28,8 +28,8 @@ public class PretraziRezervacijeSO extends ApstraktnaGenerickaOperacija {
         lista = broker.getAll(param, " JOIN zaposleni ON rezervacija.zaposleni=zaposleni.zaposleniID"
                 + " JOIN klijent ON rezervacija.klijent=klijent.klijentID"
                 + " JOIN aranzman ON rezervacija.aranzman=aranzman.aranzmanID"
-                + " JOIN tiparanzmana ON aranzman.tipAranzmana=tipAranzmana.tipID"
                 + " JOIN grad ON aranzman.grad=grad.gradID"
+                + " JOIN tiparanzmana ON aranzman.tipAranzmana=tipAranzmana.tipID"
                 + " WHERE klijent.email=" + "'" + kljuc + "'");
 
         for (Rezervacija r : lista) {

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import rs.np.turagencija.domen.Grad;
 import rs.np.turagencija.domen.Klijent;
 import rs.np.turagencija.repository.db.DbConnectionFactory;
 
@@ -33,10 +34,12 @@ public class ObrisiKlijentaSOTest {
 
         try ( Statement st = connection.createStatement()) {
 
+            st.executeUpdate("DELETE FROM stavkarezervacije");
             st.executeUpdate("DELETE FROM rezervacija");
             st.executeUpdate("DELETE FROM aranzman");
             st.executeUpdate("DELETE FROM grad");
             st.executeUpdate("DELETE FROM tiparanzmana");
+            st.executeUpdate("DELETE FROM fakultativnausluga");
             st.executeUpdate("DELETE FROM klijent");
             st.executeUpdate("DELETE FROM zaposleni");
 
@@ -75,17 +78,7 @@ public class ObrisiKlijentaSOTest {
 
     @AfterEach
     public void tearDown() throws Exception {
-        /*
-        try ( Statement st = connection.createStatement()) {
 
-            st.executeUpdate("DELETE FROM rezervacija");
-            st.executeUpdate("DELETE FROM aranzman");
-            st.executeUpdate("DELETE FROM grad");
-            st.executeUpdate("DELETE FROM tiparanzmana");
-            st.executeUpdate("DELETE FROM klijent");
-            st.executeUpdate("DELETE FROM zaposleni");
-        }
-         */
         connection.close();
     }
 
@@ -119,5 +112,19 @@ public class ObrisiKlijentaSOTest {
 
         assertTrue(so.obrisan(), "Sistemska operacija nije označila da je klijent obrisan.");
 
+    }
+
+    @Test
+    public void testDodajKlijentaParametarNull() {
+        ObrisiKlijentaSO so = new ObrisiKlijentaSO();
+        Exception e = assertThrows(java.lang.Exception.class, () -> so.izvrsi(null, null));
+        assertEquals(e.getMessage(), "Prosledjeni objekat nije instanca klase Klijent ili je null.");
+    }
+
+    @Test
+    public void testDodajKlijentaPogresanTipObjekta() {
+        ObrisiKlijentaSO so = new ObrisiKlijentaSO();
+        Exception e = assertThrows(Exception.class, () -> so.izvrsi(new Grad(), null));
+        assertEquals("Prosledjeni objekat nije instanca klase Klijent ili je null.", e.getMessage());
     }
 }

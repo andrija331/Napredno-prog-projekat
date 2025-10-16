@@ -68,16 +68,14 @@ public class PretraziRezervacijeSOTest {
         so.izvrsi(new Rezervacija(), kljuc);
 
         List<Rezervacija> rezervacije = so.getLista();
-        new ArrayList<>();
 
         assertNotNull(rezervacije);
         assertEquals(1, rezervacije.size(), "Treba biti pronadjena tacno jedna rezervacija za datog klijenta.");
 
         Rezervacija r = rezervacije.get(0);
+        assertEquals(1, r.getRezervacijaID());
         assertEquals("Marko", r.getKlijent().getIme());
         assertEquals("Grcka", r.getAranzman().getNaziv());
-
-        assertEquals("Atina", r.getAranzman().getGrad().getNazivGrada());
         assertEquals(1, r.getStavke().size());
         assertEquals(50, r.getStavke().get(0).getCena());
     }

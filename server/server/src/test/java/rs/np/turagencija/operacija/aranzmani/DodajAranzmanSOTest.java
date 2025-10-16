@@ -34,9 +34,14 @@ public class DodajAranzmanSOTest {
         DbConnectionFactory.getInst().setTestConnection(connection);
 
         try ( Statement st = connection.createStatement()) {
+            st.executeUpdate("DELETE FROM stavkarezervacije");
+            st.executeUpdate("DELETE FROM rezervacija");
             st.executeUpdate("DELETE FROM aranzman");
             st.executeUpdate("DELETE FROM grad");
             st.executeUpdate("DELETE FROM tiparanzmana");
+            st.executeUpdate("DELETE FROM fakultativnausluga");
+            st.executeUpdate("DELETE FROM klijent");
+            st.executeUpdate("DELETE FROM zaposleni");
 
             st.executeUpdate("INSERT INTO grad (gradID, imeGrada, drzava, opis) VALUES (1, 'Bec', 'Austrija', 'Glavni grad Austrije')");
             st.executeUpdate("INSERT INTO tiparanzmana (tipID, nazivTipa) VALUES (1, 'Vikend putovanje')");

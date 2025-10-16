@@ -40,7 +40,7 @@ public class ObrisiRezervacijuSO extends ApstraktnaGenerickaOperacija {
     }
 
     private void obrisiStavke(Rezervacija rez) throws Exception {
-        System.out.println("Stigao dovde");
+        System.out.println("Stigao do ovde");
         List<StavkaRezervacije> stavke = rez.getStavke();
         for (StavkaRezervacije s : stavke) {
             broker.delete(s);

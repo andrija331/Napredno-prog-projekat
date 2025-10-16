@@ -30,7 +30,15 @@ public class DodajKlijentaSOTest {
         DbConnectionFactory.getInst().setTestConnection(connection);
 
         Statement st = connection.createStatement();
+        st.executeUpdate("DELETE FROM stavkarezervacije");
+        st.executeUpdate("DELETE FROM rezervacija");
+        st.executeUpdate("DELETE FROM aranzman");
+        st.executeUpdate("DELETE FROM grad");
+        st.executeUpdate("DELETE FROM tiparanzmana");
+        st.executeUpdate("DELETE FROM fakultativnausluga");
         st.executeUpdate("DELETE FROM klijent");
+        st.executeUpdate("DELETE FROM zaposleni");
+
         st.close();
 
     }

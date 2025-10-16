@@ -31,8 +31,15 @@ public class UcitajGradoveSOTest {
         DbConnectionFactory.getInst().setTestConnection(connection);
 
         try ( Statement st = connection.createStatement()) {
+            st.executeUpdate("DELETE FROM stavkarezervacije");
+            st.executeUpdate("DELETE FROM rezervacija");
             st.executeUpdate("DELETE FROM aranzman");
             st.executeUpdate("DELETE FROM grad");
+            st.executeUpdate("DELETE FROM tiparanzmana");
+            st.executeUpdate("DELETE FROM fakultativnausluga");
+            st.executeUpdate("DELETE FROM klijent");
+            st.executeUpdate("DELETE FROM zaposleni");
+
             st.executeUpdate("INSERT INTO grad (imeGrada, drzava, opis) VALUES ('Beograd', 'Srbija', 'Glavni grad Srbije')");
             st.executeUpdate("INSERT INTO grad (imeGrada, drzava, opis) VALUES ('Novi Sad', 'Srbija', 'Centar Vojvodine')");
         }
