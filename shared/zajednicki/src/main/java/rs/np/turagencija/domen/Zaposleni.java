@@ -12,10 +12,11 @@ import java.util.Objects;
 /**
  * Predstavlja zaposlenog radnika turisticke agencije koji ima svoj ID, ime,
  * prezime, korisnicko ime i lozinku.
+ *
  * <p>
  * Klasa implementira interfejs {@link ApstraktniDomenskiObjekat} i omogucava
  * mapiranje zaposlenog na tabelu u bazi podataka. Koristi se za autentifikaciju
- * i administrativne operacije u sistemu.
+ * i administrativne operacije u sistemu.</p>
  *
  * @author Andrija Panovic
  */

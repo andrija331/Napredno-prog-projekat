@@ -58,18 +58,18 @@
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>3.12.0</version>
             <configuration>
-                <!-- Iskljucuje proveru HTML tagova, praznih <p>, metoda bez komentara -->
+               
                 <doclint>none</doclint>
 
-                <!-- Ako se ipak nadju greske, nemoj da zaustavis build -->
+                
                 <failOnError>false</failOnError>
 
-                <!-- Podesavanje karakter seta i verzije Jave -->
+                
                 <encoding>UTF-8</encoding>
                 <charset>UTF-8</charset>
                 <source>17</source>
 
-                <!-- (Opcionalno) Dodaj link ka zvanicnom JDK API-ju -->
+                
                 <links>
                     <link>https://docs.oracle.com/en/java/javase/17/docs/api/</link>
                 </links>
