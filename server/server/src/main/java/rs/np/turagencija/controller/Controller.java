@@ -124,7 +124,8 @@ public class Controller {
 
     public List<Aranzman> ucitajAranzmane() throws Exception {
         UcitajAranzmaneSO ucitajAr = new UcitajAranzmaneSO();
-        ucitajAr.izvrsi(new Aranzman(), null/*" join tiparanzmana on aranzman.tiparanzmana=tiparanzmana.tipid"*/);
+        ucitajAr.izvrsi(new Aranzman(), " JOIN tiparanzmana ON aranzman.tiparanzmana=tiparanzmana.tipid"
+                + " JOIN grad ON aranzman.grad=grad.gradID");
         System.out.println("Klasa CONTROLLER :" + ucitajAr.getListaAr());
         return ucitajAr.getListaAr();
     }
@@ -168,7 +169,10 @@ public class Controller {
 
     public List<Rezervacija> ucitajRezervacije() throws Exception {
         UcitajRezervacijeSO ucitajRez = new UcitajRezervacijeSO();
-        ucitajRez.izvrsi(new Rezervacija(), null);
+        ucitajRez.izvrsi(new Rezervacija(), " JOIN zaposleni ON rezervacija.zaposleni=zaposleni.zaposleniID"
+                + " JOIN klijent ON rezervacija.klijent=klijent.klijentID"
+                + " JOIN aranzman ON rezervacija.aranzman=aranzman.aranzmanID"
+                + " JOIN tiparanzmana ON aranzman.tipAranzmana=tipAranzmana.tipID");
 
         //System.out.println("Klasa CONTROLLER :" + ucitajRez.getLista());
         return ucitajRez.getLista();
