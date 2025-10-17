@@ -146,6 +146,7 @@ public class GlavnaFormaController {
 
     public void popuniTabeluRezervacije() {
         List<Rezervacija> rezervacije = Komunikacija.getInstance().ucitajRezervacije();
+
         rezervacije.sort(Comparator.comparing(d -> d.getDatum()));
         /*sortirano prema datumu*/
         Kordinator.getInst().setSveRezervacije(rezervacije);

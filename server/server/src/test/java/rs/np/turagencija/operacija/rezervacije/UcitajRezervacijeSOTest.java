@@ -62,7 +62,11 @@ public class UcitajRezervacijeSOTest {
     @Test
     public void testUcitajSveRezervacije() throws Exception {
         UcitajRezervacijeSO so = new UcitajRezervacijeSO();
-        so.izvrsi(new Rezervacija(), null);
+        so.izvrsi(new Rezervacija(), " JOIN zaposleni ON rezervacija.zaposleni=zaposleni.zaposleniID"
+                + " JOIN klijent ON rezervacija.klijent=klijent.klijentID"
+                + " JOIN aranzman ON rezervacija.aranzman=aranzman.aranzmanID"
+                + " JOIN grad ON aranzman.grad=grad.gradID"
+                + " JOIN tiparanzmana ON aranzman.tipAranzmana=tipAranzmana.tipID");
 
         List<Rezervacija> rezervacije = so.getLista();
 

@@ -54,7 +54,7 @@ public class ObrisiRezervacijuSO extends ApstraktnaGenerickaOperacija {
      */
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
-
+        
         Rezervacija rez = (Rezervacija) param;
         System.out.println("Rezervacija za brisanje: " + rez);
         obrisiStavke(rez);
@@ -81,10 +81,12 @@ public class ObrisiRezervacijuSO extends ApstraktnaGenerickaOperacija {
     private void obrisiStavke(Rezervacija rez) throws Exception {
         System.out.println("Stigao do ovde");
         List<StavkaRezervacije> stavke = rez.getStavke();
+        
         for (StavkaRezervacije s : stavke) {
+            s.setRezervacija(rez);
             broker.delete(s);
         }
         System.out.println("OBRISANE STAVKE");
     }
-
+    
 }

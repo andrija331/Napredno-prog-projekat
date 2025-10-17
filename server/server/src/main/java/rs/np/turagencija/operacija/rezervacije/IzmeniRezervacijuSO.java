@@ -60,18 +60,19 @@ public class IzmeniRezervacijuSO extends ApstraktnaGenerickaOperacija {
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
         Rezervacija rez = (Rezervacija) param;
         broker.edit(rez);
-
+        
         List<StavkaRezervacije> stareStavke = Controller.getInst().ucitajStavke(rez.getRezervacijaID());
         for (StavkaRezervacije s : stareStavke) {
             s.setRezervacija(rez);
             broker.delete(s);
         }
-
+        
         for (StavkaRezervacije st : rez.getStavke()) {
+            st.setRezervacija(rez);
             broker.add(st);
         }
         uspesnoIzmenjeno = true;
-
+        
     }
 
     /**
@@ -82,5 +83,5 @@ public class IzmeniRezervacijuSO extends ApstraktnaGenerickaOperacija {
     public boolean izmenjeno() {
         return uspesnoIzmenjeno;
     }
-
+    
 }

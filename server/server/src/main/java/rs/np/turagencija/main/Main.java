@@ -4,6 +4,7 @@
  */
 package rs.np.turagencija.main;
 
+import rs.np.turagencija.controller.Controller;
 import rs.np.turagencija.forme.ServerskaForma;
 import rs.np.turagencija.konfiguracija.Konfiguracija;
 
@@ -13,11 +14,13 @@ import rs.np.turagencija.konfiguracija.Konfiguracija;
  */
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         ServerskaForma sf = new ServerskaForma();
         sf.setLocationRelativeTo(null);
         sf.setVisible(true);
+
+        Controller.getInst().ucitajRezervacijeUJsonFajl();
 
     }
 }

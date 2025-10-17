@@ -66,6 +66,7 @@ public class DbRepositoryGeneric implements DbRepository<ApstraktniDomenskiObjek
     @Override
     public void delete(ApstraktniDomenskiObjekat param) throws Exception {
         String upit = "DELETE FROM " + param.vratiNazivTabele() + " WHERE " + param.vratiPrimarniKljuc();
+
         Statement st = DbConnectionFactory.getInst().getConnection().createStatement();
         st.executeUpdate(upit);
         st.close();

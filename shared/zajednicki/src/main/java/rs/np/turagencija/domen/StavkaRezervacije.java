@@ -25,7 +25,7 @@ public class StavkaRezervacije implements ApstraktniDomenskiObjekat {
     /**
      * Rezervacija kojoj stavka pripada.
      */
-    private Rezervacija rezervacija;
+    private transient Rezervacija rezervacija;
 
     /**
      * Redni broj stavke u okviru rezervacije.

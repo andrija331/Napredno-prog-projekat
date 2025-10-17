@@ -46,6 +46,7 @@ public class UcitajAranzmaneSO extends ApstraktnaGenerickaOperacija {
      */
     @Override
     protected void izvrsiOperaciju(Object param, String kljuc) throws Exception {
+        System.out.println("Kljuc: " + kljuc);
         listaAr = broker.getAll(param, kljuc);
 
     }

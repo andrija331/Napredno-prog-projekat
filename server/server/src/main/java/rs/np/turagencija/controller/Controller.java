@@ -6,6 +6,7 @@ package rs.np.turagencija.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import rs.np.turagecnija.json.RezervacijaJsonRepository;
 import rs.np.turagencija.domen.Aranzman;
 import rs.np.turagencija.domen.FakultativnaUsluga;
 import rs.np.turagencija.domen.Grad;
@@ -45,6 +46,9 @@ public class Controller {
     private List<ObradaKlijentskihZahteva> klijenti = new ArrayList<>();
     private List<Zaposleni> ulogovani = new ArrayList<>();
     private ServerskaForma sf;
+
+    private final RezervacijaJsonRepository jsonRepo = new RezervacijaJsonRepository();
+    private List<Rezervacija> rezervacijeJson = new ArrayList<>();
 
     private Controller() {
     }
@@ -124,6 +128,7 @@ public class Controller {
 
     public List<Aranzman> ucitajAranzmane() throws Exception {
         UcitajAranzmaneSO ucitajAr = new UcitajAranzmaneSO();
+
         ucitajAr.izvrsi(new Aranzman(), " JOIN tiparanzmana ON aranzman.tiparanzmana=tiparanzmana.tipid"
                 + " JOIN grad ON aranzman.grad=grad.gradID");
         System.out.println("Klasa CONTROLLER :" + ucitajAr.getListaAr());
@@ -172,6 +177,7 @@ public class Controller {
         ucitajRez.izvrsi(new Rezervacija(), " JOIN zaposleni ON rezervacija.zaposleni=zaposleni.zaposleniID"
                 + " JOIN klijent ON rezervacija.klijent=klijent.klijentID"
                 + " JOIN aranzman ON rezervacija.aranzman=aranzman.aranzmanID"
+                + " JOIN grad ON aranzman.grad=grad.gradID"
                 + " JOIN tiparanzmana ON aranzman.tipAranzmana=tipAranzmana.tipID");
 
         //System.out.println("Klasa CONTROLLER :" + ucitajRez.getLista());
@@ -198,6 +204,11 @@ public class Controller {
         DodajRezervacijuSO dodajRez = new DodajRezervacijuSO();
         dodajRez.izvrsi(rez, null);
         rez = dodajRez.getRezervacija();
+
+        if (rez.getRezervacijaID() != -1) {
+            ucitajRezervacijeUJsonFajl();
+        }
+
         return rez;
 
     }
@@ -211,6 +222,11 @@ public class Controller {
     public boolean obrisiRezervaciju(Rezervacija rezZaBrisanje) throws Exception {
         ObrisiRezervacijuSO obrisiRez = new ObrisiRezervacijuSO();
         obrisiRez.izvrsi(rezZaBrisanje, null);
+
+        if (obrisiRez.obrisana()) {
+            ucitajRezervacijeUJsonFajl();
+        }
+
         return obrisiRez.obrisana();
 
     }
@@ -218,6 +234,10 @@ public class Controller {
     public boolean izmeniRezervaciju(Rezervacija rezZaIzmenu) throws Exception {
         IzmeniRezervacijuSO izmeniRez = new IzmeniRezervacijuSO();
         izmeniRez.izvrsi(rezZaIzmenu, null);
+
+        if (izmeniRez.izmenjeno()) {
+            ucitajRezervacijeUJsonFajl();
+        }
         return izmeniRez.izmenjeno();
     }
 
@@ -259,4 +279,10 @@ public class Controller {
         return gradoviOp.getGradovi();
 
     }
+
+    public void ucitajRezervacijeUJsonFajl() throws Exception {
+        rezervacijeJson = ucitajRezervacije();
+        jsonRepo.sacuvajSve(rezervacijeJson);
+    }
+
 }

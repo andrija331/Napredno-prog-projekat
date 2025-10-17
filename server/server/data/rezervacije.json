@@ -1,0 +1,146 @@
+[
+  {
+    "rezervacijaID": 9,
+    "zaposleni": {
+      "zaposleniID": 4,
+      "ime": "Andrija",
+      "prezime": "Panovic",
+      "username": "andrija",
+      "password": "andrija"
+    },
+    "klijent": {
+      "klijentID": 10,
+      "ime": "Marko",
+      "prezime": "Pavlovic",
+      "email": "mare@gmail.com",
+      "brojTelefona": 631234556
+    },
+    "aranzman": {
+      "aranzmanID": 9,
+      "naziv": "Letovanje u Kusadasiju",
+      "datum": "Jun 25, 2026",
+      "brojNocenja": 9,
+      "cena": 320.0,
+      "tipAranzmana": {
+        "tipID": 7,
+        "nazivTipa": "letovanje"
+      },
+      "grad": {
+        "gradID": 11,
+        "imeGrada": "Kusadasi",
+        "drzava": "Turska",
+        "opis": "Popularno letovalište na obali Egejskog mora u Turskoj. Nudi prelepe plaže, izlete do Efesa i živu atmosferu."
+      }
+    },
+    "stavke": [
+      {
+        "rb": 1,
+        "cena": 50.0,
+        "usluga": {
+          "uslugaID": 5,
+          "naziv": "izlet",
+          "opis": "Obuhvata sve izlete koji su u sklopu aranzmana",
+          "cena": 50.0
+        }
+      }
+    ],
+    "datum": "Oct 14, 2025",
+    "ukupnaCena": 370.0
+  },
+  {
+    "rezervacijaID": 10,
+    "zaposleni": {
+      "zaposleniID": 4,
+      "ime": "Andrija",
+      "prezime": "Panovic",
+      "username": "andrija",
+      "password": "andrija"
+    },
+    "klijent": {
+      "klijentID": 8,
+      "ime": "Pavle",
+      "prezime": "Krsmanovic",
+      "email": "pavle@gmail.com",
+      "brojTelefona": 653287890
+    },
+    "aranzman": {
+      "aranzmanID": 8,
+      "naziv": "Prag nova godina",
+      "datum": "Dec 30, 2025",
+      "brojNocenja": 3,
+      "cena": 240.0,
+      "tipAranzmana": {
+        "tipID": 9,
+        "nazivTipa": "nova godina"
+      },
+      "grad": {
+        "gradID": 6,
+        "imeGrada": "Prag",
+        "drzava": "Ceska",
+        "opis": "„Zlatni grad“ na Vltavi poznat po Karlovom mostu i srednjovekovnom šarmu. Njegov Stari grad oduševljava svakog posetioca."
+      }
+    },
+    "stavke": [
+      {
+        "rb": 1,
+        "cena": 50.0,
+        "usluga": {
+          "uslugaID": 5,
+          "naziv": "izlet",
+          "opis": "Obuhvata sve izlete koji su u sklopu aranzmana",
+          "cena": 50.0
+        }
+      }
+    ],
+    "datum": "Oct 14, 2025",
+    "ukupnaCena": 290.0
+  },
+  {
+    "rezervacijaID": 11,
+    "zaposleni": {
+      "zaposleniID": 3,
+      "ime": "Rade",
+      "prezime": "Vasiljevic",
+      "username": "rade",
+      "password": "rade"
+    },
+    "klijent": {
+      "klijentID": 8,
+      "ime": "Pavle",
+      "prezime": "Krsmanovic",
+      "email": "pavle@gmail.com",
+      "brojTelefona": 653287890
+    },
+    "aranzman": {
+      "aranzmanID": 11,
+      "naziv": "Zimska bajka",
+      "datum": "Jan 13, 2026",
+      "brojNocenja": 5,
+      "cena": 160.0,
+      "tipAranzmana": {
+        "tipID": 8,
+        "nazivTipa": "zimovanje"
+      },
+      "grad": {
+        "gradID": 7,
+        "imeGrada": "Krakow",
+        "drzava": "Poljska",
+        "opis": "Nekadašnja prestonica Poljske, poznata po istorijskom trgu i dvorcu Vavel. Grad ?uva autenti?an duh srednje Evrope."
+      }
+    },
+    "stavke": [
+      {
+        "rb": 1,
+        "cena": 50.0,
+        "usluga": {
+          "uslugaID": 5,
+          "naziv": "izlet",
+          "opis": "Obuhvata sve izlete koji su u sklopu aranzmana",
+          "cena": 50.0
+        }
+      }
+    ],
+    "datum": "Oct 17, 2025",
+    "ukupnaCena": 210.0
+  }
+]

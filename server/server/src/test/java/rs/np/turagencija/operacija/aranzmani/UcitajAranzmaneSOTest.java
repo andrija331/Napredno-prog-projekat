@@ -58,7 +58,8 @@ public class UcitajAranzmaneSOTest {
     public void testUcitajAranzmane() throws Exception {
         UcitajAranzmaneSO so = new UcitajAranzmaneSO();
 
-        so.izvrsi(new Aranzman(), null);
+        so.izvrsi(new Aranzman(), " JOIN tiparanzmana ON aranzman.tiparanzmana=tiparanzmana.tipid"
+                + " JOIN grad ON aranzman.grad=grad.gradID");
 
         List<Aranzman> lista = so.getListaAr();
 
