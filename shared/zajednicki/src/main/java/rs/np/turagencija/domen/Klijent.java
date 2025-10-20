@@ -117,6 +117,13 @@ public class Klijent implements ApstraktniDomenskiObjekat {
      * @param ime Ime klijenta kao String
      */
     public void setIme(String ime) {
+        if (ime == null) {
+            throw new NullPointerException("Ime ne sme biti null");
+        }
+        if (ime.isEmpty()) {
+            throw new IllegalArgumentException("Ime ne sme biti prazno");
+        }
+
         this.ime = ime;
     }
 
@@ -135,6 +142,13 @@ public class Klijent implements ApstraktniDomenskiObjekat {
      * @param prezime Prezime klijenta kao String
      */
     public void setPrezime(String prezime) {
+        if (ime == null) {
+            throw new NullPointerException("Prezime ne sme biti null");
+        }
+        if (ime.isEmpty()) {
+            throw new IllegalArgumentException("Prezime ne sme biti prazno");
+        }
+
         this.prezime = prezime;
     }
 
@@ -153,6 +167,12 @@ public class Klijent implements ApstraktniDomenskiObjekat {
      * @param email Email klijenta kao String
      */
     public void setEmail(String email) {
+        if (email == null) {
+            throw new NullPointerException("Email ne sme biti null");
+        }
+        if (email.isEmpty()) {
+            throw new IllegalArgumentException("Email ne sme biti prazan");
+        }
         this.email = email;
     }
 
@@ -171,6 +191,9 @@ public class Klijent implements ApstraktniDomenskiObjekat {
      * @param brojTelefona broj telefona klijenta kao Long
      */
     public void setBrojTelefona(long brojTelefona) {
+        if (brojTelefona < 600000000 || brojTelefona > 699999999) {
+            throw new IllegalArgumentException("Broj telefona nije u adekvatnom opsegu");
+        }
         this.brojTelefona = brojTelefona;
     }
 
