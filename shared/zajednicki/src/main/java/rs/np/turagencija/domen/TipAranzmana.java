@@ -43,6 +43,9 @@ public class TipAranzmana implements ApstraktniDomenskiObjekat {
      * Konstruktor koji kreira objekat klase {@code TipAranzmana} sa svim
      * atributima.
      *
+     * Unutar konstruktora se koriste set metode za sve parametre kako bi se
+     * obezbdeila logicka kontrola
+     *
      * @param tipID jedinstveni identifikator tipa aranzmana
      * @param nazivTipa naziv tipa aranzmana
      */
@@ -81,7 +84,12 @@ public class TipAranzmana implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja naziv tipa aranzmana.
      *
+     * Uneti naziv tipa ne sme biti null niti prazan
+     *
      * @param nazivTipa naziv tipa aranzmana kao String
+     * @throws java.lang.NullPointerException Ako je uneti naziv tipa null
+     * @throws java.lang.IllegalArgumentException Ako je uneti naziv tipa prazan
+     * String
      */
     public void setNazivTipa(String nazivTipa) {
         if (nazivTipa == null) {
@@ -136,47 +144,47 @@ public class TipAranzmana implements ApstraktniDomenskiObjekat {
         final TipAranzmana other = (TipAranzmana) obj;
         return Objects.equals(this.nazivTipa, other.nazivTipa);
     }
-    
+
     @Override
     public String vratiNazivTabele() {
         return "tipAranzmana";
     }
-    
+
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-        
+
         while (rs.next()) {
             int tip = rs.getInt("tipID");
-            
+
             String naziv = rs.getString("tipAranzmana.nazivTipa");
-            
+
             TipAranzmana tipAr = new TipAranzmana(tip, naziv);
             lista.add(tipAr);
         }
-        
+
         return lista;
     }
-    
+
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "nazivTipa";
     }
-    
+
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + nazivTipa + "'";
     }
-    
+
     @Override
     public String vratiPrimarniKljuc() {
         return "tipAranzmana.tipID=" + tipID;
     }
-    
+
     @Override
     public String vratiVrednostZaIzmenu() {
-        
+
         return "nazivTipa='" + nazivTipa + "'";
     }
-    
+
 }

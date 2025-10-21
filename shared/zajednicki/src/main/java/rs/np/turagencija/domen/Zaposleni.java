@@ -53,6 +53,9 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
     /**
      * Konstruktor koji kreira zaposlenog sa svim atributima.
      *
+     * Unutar konstruktora se koriste set metode za sve parametre kako bi se
+     * obezbdeila logicka kontrola
+     *
      * @param zaposleniID jedinstveni identifikator
      * @param ime ime zaposlenog
      * @param prezime prezime zaposlenog
@@ -97,7 +100,11 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja ime zaposlenog.
      *
+     * Uneto ime ne sme biti null niti prazno
+     *
      * @param ime ime zaposlenog kao String
+     * @throws java.lang.NullPointerException Ako je uneto ime null
+     * @throws java.lang.IllegalArgumentException Ako je uneto ime prazan String
      */
     public void setIme(String ime) {
         if (ime == null) {
@@ -121,7 +128,12 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja prezime zaposlenog.
      *
+     * Uneto prezime ne sme biti null niti prazno
+     *
      * @param prezime prezime zaposlenog kao String
+     * @throws java.lang.NullPointerException Ako je uneto prezime null
+     * @throws java.lang.IllegalArgumentException Ako je uneto prezime prazan
+     * String
      */
     public void setPrezime(String prezime) {
         if (prezime == null) {
@@ -145,7 +157,12 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja korisnicko ime zaposlenog.
      *
+     * Uneti username ne sme biti null niti prazan
+     *
      * @param username korisnicko ime zaposlenog kao String
+     * @throws java.lang.NullPointerException Ako je uneti username null
+     * @throws java.lang.IllegalArgumentException Ako je uneti password prazan
+     * String
      */
     public void setUsername(String username) {
         if (username == null) {
@@ -170,6 +187,9 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
      * Postavlja lozinku zaposlenog.
      *
      * @param password lozinka zaposlenog kao String
+     * @throws java.lang.NullPointerException Ako je uneti passoword null
+     * @throws java.lang.IllegalArgumentException Ako je uneti password prazan
+     * String
      */
     public void setPassword(String password) {
         if (password == null) {
@@ -229,16 +249,16 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
         }
         return Objects.equals(this.password, other.password);
     }
-    
+
     @Override
     public String vratiNazivTabele() {
         return "zaposleni";
     }
-    
+
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-        
+
         while (rs.next()) {
             int zaposleniid = rs.getInt("zaposleniID");
             String ime = rs.getString("zaposleni.ime");
@@ -248,28 +268,28 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
             Zaposleni z = new Zaposleni(zaposleniid, ime, prezime, username, password);
             lista.add(z);
         }
-        
+
         return lista;
     }
-    
+
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "ime,prezime,username,password";
     }
-    
+
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + ime + "','" + prezime + "','" + username + "','" + password + "'";
     }
-    
+
     @Override
     public String vratiPrimarniKljuc() {
         return "zaposleni.zaposleniID=" + zaposleniID;
     }
-    
+
     @Override
     public String vratiVrednostZaIzmenu() {
         return "ime='" + ime + "', prezime='" + prezime + "', username='" + username + "', password='" + password + "'";
     }
-    
+
 }

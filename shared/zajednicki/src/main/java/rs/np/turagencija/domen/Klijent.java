@@ -60,6 +60,9 @@ public class Klijent implements ApstraktniDomenskiObjekat {
      * Konstruktor koji kreira objekat klase {@code Klijent} sa svim relevantnim
      * podacima.
      *
+     * Unutar konstruktora se koriste set metode za sve parametre kako bi se
+     * obezbdeila logicka kontrola
+     *
      * @param klijentID jedinstveni identifikator klijenta
      * @param ime ime klijenta
      * @param prezime prezime klijenta
@@ -114,7 +117,11 @@ public class Klijent implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja novo ime klijenta
      *
+     * Uneto ime ne sme biti null niti prazno
+     *
      * @param ime Ime klijenta kao String
+     * @throws java.lang.NullPointerException Ako je uneto ime null
+     * @throws java.lang.IllegalArgumentException Ako je uneto ime prazan String
      */
     public void setIme(String ime) {
         if (ime == null) {
@@ -123,7 +130,7 @@ public class Klijent implements ApstraktniDomenskiObjekat {
         if (ime.isEmpty()) {
             throw new IllegalArgumentException("Ime ne sme biti prazno");
         }
-        
+
         this.ime = ime;
     }
 
@@ -139,7 +146,12 @@ public class Klijent implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja novo prezime klijenta
      *
+     * Uneto prezime ne sme biti null niti prazno
+     *
      * @param prezime Prezime klijenta kao String
+     * @throws java.lang.NullPointerException Ako je uneto prezime null
+     * @throws java.lang.IllegalArgumentException Ako je uneto prezime prazan
+     * String
      */
     public void setPrezime(String prezime) {
         if (prezime == null) {
@@ -148,7 +160,7 @@ public class Klijent implements ApstraktniDomenskiObjekat {
         if (prezime.isEmpty()) {
             throw new IllegalArgumentException("Prezime ne sme biti prazno");
         }
-        
+
         this.prezime = prezime;
     }
 
@@ -164,7 +176,12 @@ public class Klijent implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja novi email Klijenta
      *
+     * Uneti email ne sme biti null niti prazan string
+     *
      * @param email Email klijenta kao String
+     * @throws java.lang.NullPointerException Ako je uneti email null
+     * @throws java.lang.IllegalArgumentException Ako je uneti email prazan
+     * String
      */
     public void setEmail(String email) {
         if (email == null) {
@@ -188,7 +205,11 @@ public class Klijent implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja novi broj telefona klijenta
      *
+     * Uneti broj telefona mora biti veci od 600000000, a manji od 699999999
+     *
      * @param brojTelefona broj telefona klijenta kao Long
+     * @throws java.lang.IllegalArgumentException Ako je uneti broj telefona van
+     * opsega(600000000-699999999)
      */
     public void setBrojTelefona(long brojTelefona) {
         if (brojTelefona < 600000000 || brojTelefona > 699999999) {
@@ -229,16 +250,16 @@ public class Klijent implements ApstraktniDomenskiObjekat {
         final Klijent other = (Klijent) obj;
         return Objects.equals(this.email, other.email);
     }
-    
+
     @Override
     public String vratiNazivTabele() {
         return "klijent";
     }
-    
+
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-        
+
         while (rs.next()) {
             int klijentid = rs.getInt("klijentID");
             long brTel = rs.getInt("brojTelefona");
@@ -248,29 +269,29 @@ public class Klijent implements ApstraktniDomenskiObjekat {
             Klijent k = new Klijent(klijentid, ime, prezime, email, brTel);
             lista.add(k);
         }
-        
+
         return lista;
     }
-    
+
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "ime,prezime,email,brojTelefona";
-        
+
     }
-    
+
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + ime + "','" + prezime + "','" + email + "'," + brojTelefona;
     }
-    
+
     @Override
     public String vratiPrimarniKljuc() {
         return "klijent.klijentID=" + klijentID;
     }
-    
+
     @Override
     public String vratiVrednostZaIzmenu() {
         return "ime='" + ime + "', prezime='" + prezime + "', email='" + email + "', brojTelefona=" + brojTelefona;
     }
-    
+
 }

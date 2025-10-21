@@ -53,6 +53,9 @@ public class StavkaRezervacije implements ApstraktniDomenskiObjekat {
      * Konstruktor koji kreira objekat klase {@code StavkaRezervacije} sa svim
      * atributima osim rezervacije.
      *
+     * Unutar konstruktora se koriste set metode za sve parametre kako bi se
+     * obezbdeila logicka kontrola
+     *
      * @param rb redni broj stavke u okviru rezervacije
      * @param cena cena stavke (fakultativne usluge)
      * @param usluga fakultativna usluga koja je deo rezervacije
@@ -75,7 +78,10 @@ public class StavkaRezervacije implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja rezervaciju kojoj stavka pripada.
      *
+     * Uneta rezervacija ne sme biti null
+     *
      * @param rezervacija rezervacija kao objekat klase {@code Rezervacija}
+     * @throws java.lang.NullPointerException Ako je uneta rezervacija null
      */
     public void setRezervacija(Rezervacija rezervacija) {
         if (rezervacija == null) {
@@ -96,10 +102,14 @@ public class StavkaRezervacije implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja redni broj stavke u okviru rezervacije.
      *
+     * Uneti redni broj ne sme biti manji od nula ili jednak nula
+     *
      * @param rb redni broj stavke kao Integer vrednost
+     * @throws java.lang.IllegalArgumentException Ako je uneti redni broj manji
+     * od nula ili jednak nula
      */
     public void setRb(int rb) {
-        
+
         if (rb <= 0) {
             throw new IllegalArgumentException("Redni broj stavke mora biti veći od nule");
         }
@@ -118,7 +128,11 @@ public class StavkaRezervacije implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja cenu stavke (fakultativne usluge).
      *
+     * Uneta cena ne sme da bude jednaka nula ili manja od nula
+     *
      * @param cena cena stavke kao Double vrednost
+     * @throws java.lang.IllegalArgumentException Ako je uneta cena manja od
+     * nula ili jednaka nula
      */
     public void setCena(double cena) {
         if (cena <= 0) {
@@ -139,8 +153,11 @@ public class StavkaRezervacije implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja fakultativnu uslugu koja je deo rezervacije.
      *
+     * Uneta usluga ne sme biti null
+     *
      * @param usluga fakultativna usluga kao objekat klase
      * {@code FakultativnaUsluga}
+     * @throws java.lang.NullPointerException Ako je uneta usluga null
      */
     public void setUsluga(FakultativnaUsluga usluga) {
         if (usluga == null) {
@@ -159,49 +176,49 @@ public class StavkaRezervacije implements ApstraktniDomenskiObjekat {
     public String toString() {
         return "StavkaRezervacije{" + "rb=" + rb + ", cena=" + cena + ", usluga=" + usluga + '}';
     }
-    
+
     @Override
     public String vratiNazivTabele() {
         return "stavkaRezervacije";
     }
-    
+
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         while (rs.next()) {
-            
+
             StavkaRezervacije stavka = new StavkaRezervacije();
             stavka.setRb(rs.getInt("rb"));
             stavka.setCena(rs.getDouble("stavkaRezervacije.cena"));
-            
+
             FakultativnaUsluga usluga = new FakultativnaUsluga();
             usluga.setNaziv(rs.getString("fakultativnausluga.naziv"));
             usluga.setOpis(rs.getString("fakultativnausluga.opis"));
             usluga.setCena(rs.getDouble("fakultativnausluga.cena"));
             usluga.setUslugaID(rs.getInt("fakultativnausluga.uslugaID"));
-            
+
             stavka.setUsluga(usluga);
             lista.add(stavka);
-            
+
         }
         return lista;
     }
-    
+
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "rb,rezervacija,cena,usluga";
     }
-    
+
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return rb + "," + rezervacija.getRezervacijaID() + "," + cena + "," + usluga.getUslugaID();
     }
-    
+
     @Override
     public String vratiPrimarniKljuc() {
         return "rb=" + rb + " AND stavkarezervacije.rezervacija=" + rezervacija.getRezervacijaID();
     }
-    
+
     @Override
     public String vratiVrednostZaIzmenu() {
         return "rb=" + rb + ", rezervacija=" + rezervacija.getRezervacijaID() + ", cena=" + cena + ", usluga=" + usluga.getUslugaID();

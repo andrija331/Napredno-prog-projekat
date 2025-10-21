@@ -74,6 +74,9 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
      * Konstruktor koji kreira objekat klase {@code Rezervacija} sa svim
      * atributima.
      *
+     * Unutar konstruktora se koriste set metode za sve parametre kako bi se
+     * obezbdeila logicka kontrola
+     *
      * @param rezervacijaID jedinstveni identifikator rezervacije
      * @param zaposleni zaposleni koji je uneo rezervaciju
      * @param klijent klijent koji je napravio rezervaciju
@@ -122,7 +125,10 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja zaposlenog koji je evidentirao rezervaciju.
      *
+     * Uneti zaposleni ne sme biti null
+     *
      * @param zaposleni zaposleni kao objekat klase {@code Zaposleni}
+     * @throws java.lang.NullPointerException Ako je uneti zaposleni null
      */
     public void setZaposleni(Zaposleni zaposleni) {
         if (zaposleni == null) {
@@ -143,7 +149,10 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja klijenta koji je kreirao rezervaciju.
      *
+     * Uneti klijent ne sme biti null
+     *
      * @param klijent klijent kao objekat klase {@code Klijent}
+     * @throws java.lang.NullPointerException Ako je uneti klijent null
      */
     public void setKlijent(Klijent klijent) {
         if (klijent == null) {
@@ -164,7 +173,10 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja aranzman koji je rezervisan.
      *
+     * Uneti aranzman ne sme biti null
+     *
      * @param aranzman aranzman kao objekat klase {@code Aranzman}
+     * @throws java.lang.NullPointerException Ako je uneti aranzman null
      */
     public void setAranzman(Aranzman aranzman) {
         if (aranzman == null) {
@@ -185,8 +197,11 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja listu stavki rezervacije (fakultativne usluge).
      *
+     * Uneta lista stavki ne sme biti null
+     *
      * @param stavke lista stavki rezervacije kao
      * {@code List<StavkaRezervacije>}
+     * @throws java.lang.NullPointerException Ako je uneta lista stavki null
      */
     public void setStavke(List<StavkaRezervacije> stavke) {
         if (stavke == null) {
@@ -207,7 +222,10 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja datum kada je rezervacija kreirana.
      *
+     * Uneti datum ne sme biti null
+     *
      * @param datum datum rezervacije kao objekat klase {@code Date}
+     * @throws java.lang.NullPointerException Ako je uneti datum null
      */
     public void setDatum(Date datum) {
         if (datum == null) {
@@ -229,7 +247,12 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja ukupnu cenu rezervacije.
      *
+     * Uneta ukupna cena ne sme biti manja od nule ili jednaka nula
+     *
      * @param ukupnaCena ukupna cena rezervacije kao Double vrednost
+     * @throws java.lang.NullPointerException Ako je uneta cena null
+     * @throws java.lang.IllegalArgumentException Ako je uneta cena manja od
+     * nula ili jednaka nula
      */
     public void setUkupnaCena(Double ukupnaCena) {
         if (ukupnaCena == null) {

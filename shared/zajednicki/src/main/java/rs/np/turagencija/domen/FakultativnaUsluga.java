@@ -55,6 +55,9 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
      * Konstruktor koji kreira objekat klase {@code FakultativnaUsluga} sa svim
      * atributima.
      *
+     * Unutar konstruktora se koriste set metode za sve parametre kako bi se
+     * obezbdeila logicka kontrola
+     *
      * @param uslugaID jedinstveni identifikator fakultativne usluge
      * @param naziv naziv fakultativne usluge
      * @param opis opis fakultativne usluge
@@ -79,7 +82,12 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja opis fakultativne usluge.
      *
+     * Uneti opis ne sme biti null niti prazan
+     *
      * @param opis opis fakultativne usluge kao String
+     * @throws java.lang.NullPointerException Ako je uneti opis null
+     * @throws java.lang.IllegalArgumentException Ako je uneti opis prazan
+     * String
      */
     public void setOpis(String opis) {
         if (opis == null) {
@@ -122,7 +130,12 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja naziv fakultativne usluge.
      *
+     * Uneti naziv usluge ne sme biti null niti prazan
+     *
      * @param naziv naziv fakultativne usluge kao String
+     * @throws java.lang.NullPointerException Ako je uneti naziv null
+     * @throws java.lang.IllegalArgumentException Ako je uneti naziv prazan
+     * String
      */
     public void setNaziv(String naziv) {
         if (naziv == null) {
@@ -146,13 +159,17 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja cenu fakultativne usluge.
      *
+     * Uneta cene mora biti veca od nule
+     *
      * @param cena cena fakultativne usluge kao Double vrednost
+     * @throws java.lang.IllegalArgumentException Ako je uneta cena manja od
+     * nule ili jednaka nula
      */
     public void setCena(double cena) {
         if (cena <= 0) {
             throw new IllegalArgumentException("Cena mora biti veca od nule");
         }
-        
+
         this.cena = cena;
     }
 
@@ -202,48 +219,48 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
         }
         return Objects.equals(this.naziv, other.naziv);
     }
-    
+
     @Override
     public String vratiNazivTabele() {
         return "fakultativnausluga";
     }
-    
+
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-        
+
         while (rs.next()) {
             int uslugaid = rs.getInt("uslugaID");
-            
+
             String naziv = rs.getString("fakultativnausluga.naziv");
             String opis = rs.getString("opis");
             Double cena = rs.getDouble("fakultativnausluga.cena");
             FakultativnaUsluga usluga = new FakultativnaUsluga(uslugaid, naziv, opis, cena);
-            
+
             lista.add(usluga);
         }
-        
+
         return lista;
     }
-    
+
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "naziv,opis,cena";
     }
-    
+
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + naziv + "','" + opis + "'," + cena;
     }
-    
+
     @Override
     public String vratiPrimarniKljuc() {
         return "fakultativnausluga.uslugaID=" + uslugaID;
     }
-    
+
     @Override
     public String vratiVrednostZaIzmenu() {
         return "naziv='" + naziv + "', opis='" + opis + "', cena=" + cena;
     }
-    
+
 }

@@ -71,6 +71,9 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
      * Konstruktor koji kreira objekat klase {@code Aranzman} sa svim atributima
      * osim grada.
      *
+     * Unutar konstruktora se koriste set metode za sve parametre kako bi se
+     * obezbdeila logicka kontrola
+     *
      * @param aranzmanID jedinstveni identifikator aranzmana
      * @param naziv naziv aranzmana
      * @param datum datum pocetka aranzmana
@@ -90,6 +93,9 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
     /**
      * Konstruktor koji kreira objekat klase {@code Aranzman} sa svim
      * atributima.
+     *
+     * Unutar konstruktora se koriste set metode za sve parametre kako bi se
+     * obezbdeila logicka kontrola
      *
      * @param aranzmanID jedinstveni identifikator aranzmana
      * @param naziv naziv aranzmana
@@ -139,7 +145,12 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja naziv aranzmana.
      *
+     * Uneti naziv aranzmana ne sme biti null niti prazan
+     *
      * @param naziv naziv aranzmana kao String
+     * @throws java.lang.NullPointerException Ako je uneti naziv null
+     * @throws java.lang.IllegalArgumentException Ako je uneti naziv prazan
+     * String
      */
     public void setNaziv(String naziv) {
         if (naziv == null) {
@@ -163,7 +174,11 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja datum pocetka aranzmana.
      *
+     * Uneti datum ne sme biti u proslosti
+     *
      * @param datum datum aranzmana kao Date
+     * @throws java.lang.NullPointerException Ako je uneti datum null
+     * @throws java.lang.IllegalArgumentException Ako je uneti datum u proslosti
      */
     public void setDatum(Date datum) {
         if (datum == null) {
@@ -188,7 +203,11 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja broj nocenja u okviru aranzmana.
      *
+     * Uneti broj nocenja mora biti veci od nule
+     *
      * @param brojNocenja broj nocenja kao Integer vrednost
+     * @throws java.lang.IllegalArgumentException Ako je uneti broj nocenja
+     * jednak nula ili manji od nula
      */
     public void setBrojNocenja(int brojNocenja) {
         if (brojNocenja <= 0) {
@@ -209,7 +228,13 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja cenu aranzmana.
      *
+     * Uneta cena ne sme biti null, i mora da bude veca od nula
+     *
      * @param cena cena aranzmana kao Double vrednost
+     * @throws java.lang.NullPointerException Ako je uneta cena null
+     * @throws java.lang.IllegalArgumentException Ako je uneta cena manja od
+     * nule ili jednaka nula
+     *
      */
     public void setCena(Double cena) {
         if (cena == null) {
@@ -233,7 +258,10 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja tip aranzmana.
      *
+     * Uneti tip aranzmana ne sme biti null
+     *
      * @param tipAranzmana tip aranzmana kao objekat klase {@code TipAranzmana}
+     * @throws java.lang.NullPointerException Ako je uneti tip aranzmana null
      */
     public void setTipAranzmana(TipAranzmana tipAranzmana) {
         if (tipAranzmana == null) {
@@ -254,7 +282,10 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja grad u kome se aranzman realizuje.
      *
+     * Uneti grad ne sme biti null
+     *
      * @param grad grad kao objekat klase {@code Grad}
+     * @throws java.lang.NullPointerException Ako je uneti grad null
      */
     public void setGrad(Grad grad) {
         if (grad == null) {
@@ -309,16 +340,16 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
         }
         return Objects.equals(this.naziv, other.naziv);
     }
-    
+
     @Override
     public String vratiNazivTabele() {
         return "aranzman";
     }
-    
+
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-        
+
         while (rs.next()) {
             int aranzmanid = rs.getInt("aranzmanID");
             String naziv = rs.getString("aranzman.naziv");
@@ -334,32 +365,32 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
             String drzava = rs.getString("grad.drzava");
             String opis = rs.getString("grad.opis");
             Grad grad = new Grad(gradID, imeGrada, drzava, opis);
-            
+
             Aranzman a = new Aranzman(aranzmanid, naziv, datum, brNocenja, cena, tip, grad);
             lista.add(a);
         }
-        
+
         return lista;
     }
-    
+
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "naziv,datum,brojNocenja,cena,tipAranzmana,grad";
     }
-    
+
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + naziv + "','" + new java.sql.Date(datum.getTime()) + "'," + brojNocenja + "," + cena + "," + tipAranzmana.getTipID() + "," + grad.getGradID();
     }
-    
+
     @Override
     public String vratiPrimarniKljuc() {
         return "aranzman.aranzmanID=" + aranzmanID;
     }
-    
+
     @Override
     public String vratiVrednostZaIzmenu() {
         return "naziv='" + naziv + "', datum='" + new java.sql.Date(datum.getTime()) + "', brojNocenja=" + brojNocenja + ", cena=" + cena + ", tipAranzmana=" + tipAranzmana.getTipID() + ", grad=" + grad.getGradID();
     }
-    
+
 }

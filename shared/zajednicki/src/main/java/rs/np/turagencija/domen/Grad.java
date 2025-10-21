@@ -53,6 +53,9 @@ public class Grad implements ApstraktniDomenskiObjekat {
     /**
      * Konstruktor koji kreira objekat klase {@code Grad} sa svim atributima.
      *
+     * Unutar konstruktora se koriste set metode za sve parametre kako bi se
+     * obezbdeila logicka kontrola
+     *
      * @param gradID jedinstveni identifikator grada
      * @param imeGrada ime grada
      * @param drzava naziv drzave u kojoj se grad nalazi
@@ -80,7 +83,7 @@ public class Grad implements ApstraktniDomenskiObjekat {
      * @param gradID gradID grada kao Integer vrednost
      */
     public void setGradID(int gradID) {
-        
+
         this.gradID = gradID;
     }
 
@@ -96,7 +99,12 @@ public class Grad implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja ime grada.
      *
+     * Uneti naziv grada ne sme biti null niti prazan
+     *
      * @param nazivGrada naziv grada kao String
+     * @throws java.lang.NullPointerException Ako je uneti naziv null
+     * @throws java.lang.IllegalArgumentException Ako je uneti naziv prazan
+     * String
      */
     public void setNazivGrada(String nazivGrada) {
         if (nazivGrada == null) {
@@ -120,7 +128,12 @@ public class Grad implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja naziv drzave u kojoj se grad nalazi.
      *
+     * Uneti naziv drzave ne sme biti null niti prazan
+     *
      * @param drzava naziv drzave kao String
+     * @throws java.lang.NullPointerException Ako je uneti naziv drzave null
+     * @throws java.lang.IllegalArgumentException Ako je uneti naziv drzave
+     * prazan String
      */
     public void setDrzava(String drzava) {
         if (drzava == null) {
@@ -144,7 +157,12 @@ public class Grad implements ApstraktniDomenskiObjekat {
     /**
      * Postavlja opis grada.
      *
+     * Uneti opis ne sme biti null niti prazan
+     *
      * @param opis opis grada kao String
+     * @throws java.lang.NullPointerException Ako je uneti opis null
+     * @throws java.lang.IllegalArgumentException Ako je uneti opis prazan
+     * String
      */
     public void setOpis(String opis) {
         if (opis == null) {
@@ -201,17 +219,17 @@ public class Grad implements ApstraktniDomenskiObjekat {
         }
         return Objects.equals(this.drzava, other.drzava);
     }
-    
+
     @Override
     public String vratiNazivTabele() {
         return "grad";
     }
-    
+
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
-        
+
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-        
+
         while (rs.next()) {
             int gradID = rs.getInt("gradID");
             String imeGrada = rs.getString("grad.imeGrada");
@@ -220,28 +238,28 @@ public class Grad implements ApstraktniDomenskiObjekat {
             Grad grad = new Grad(gradID, imeGrada, drzava, opis);
             lista.add(grad);
         }
-        
+
         return lista;
     }
-    
+
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "imeGrada,drzava,opis";
     }
-    
+
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + imeGrada + "','" + drzava + "','" + opis + "'";
     }
-    
+
     @Override
     public String vratiPrimarniKljuc() {
         return "grad.gradID=" + gradID;
     }
-    
+
     @Override
     public String vratiVrednostZaIzmenu() {
         return "imeGrada='" + imeGrada + "', drzava='" + drzava + "', opis='" + opis + "'";
     }
-    
+
 }
