@@ -60,11 +60,11 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
      * @param password lozinka
      */
     public Zaposleni(int zaposleniID, String ime, String prezime, String username, String password) {
-        this.zaposleniID = zaposleniID;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.username = username;
-        this.password = password;
+        setZaposleniID(zaposleniID);
+        setIme(ime);
+        setPrezime(prezime);
+        setUsername(username);
+        setPassword(password);
     }
 
     /**
@@ -100,6 +100,12 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
      * @param ime ime zaposlenog kao String
      */
     public void setIme(String ime) {
+        if (ime == null) {
+            throw new NullPointerException("Ime ne sme biti null");
+        }
+        if (ime.isEmpty()) {
+            throw new IllegalArgumentException("Ime ne sme biti prazno");
+        }
         this.ime = ime;
     }
 
@@ -118,6 +124,12 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
      * @param prezime prezime zaposlenog kao String
      */
     public void setPrezime(String prezime) {
+        if (prezime == null) {
+            throw new NullPointerException("Prezime ne sme biti null");
+        }
+        if (prezime.isEmpty()) {
+            throw new IllegalArgumentException("Prezime ne sme biti prazno");
+        }
         this.prezime = prezime;
     }
 
@@ -136,6 +148,12 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
      * @param username korisnicko ime zaposlenog kao String
      */
     public void setUsername(String username) {
+        if (username == null) {
+            throw new NullPointerException("Username ne sme biti null");
+        }
+        if (username.isEmpty()) {
+            throw new IllegalArgumentException("Username ne sme biti prazan");
+        }
         this.username = username;
     }
 
@@ -154,6 +172,12 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
      * @param password lozinka zaposlenog kao String
      */
     public void setPassword(String password) {
+        if (password == null) {
+            throw new NullPointerException("Sifra ne sme biti null");
+        }
+        if (password.isEmpty()) {
+            throw new IllegalArgumentException("Sifra ne sme biti prazna");
+        }
         this.password = password;
     }
 
@@ -205,16 +229,16 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
         }
         return Objects.equals(this.password, other.password);
     }
-
+    
     @Override
     public String vratiNazivTabele() {
         return "zaposleni";
     }
-
+    
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-
+        
         while (rs.next()) {
             int zaposleniid = rs.getInt("zaposleniID");
             String ime = rs.getString("zaposleni.ime");
@@ -224,28 +248,28 @@ public class Zaposleni implements ApstraktniDomenskiObjekat {
             Zaposleni z = new Zaposleni(zaposleniid, ime, prezime, username, password);
             lista.add(z);
         }
-
+        
         return lista;
     }
-
+    
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "ime,prezime,username,password";
     }
-
+    
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + ime + "','" + prezime + "','" + username + "','" + password + "'";
     }
-
+    
     @Override
     public String vratiPrimarniKljuc() {
         return "zaposleni.zaposleniID=" + zaposleniID;
     }
-
+    
     @Override
     public String vratiVrednostZaIzmenu() {
         return "ime='" + ime + "', prezime='" + prezime + "', username='" + username + "', password='" + password + "'";
     }
-
+    
 }

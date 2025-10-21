@@ -47,8 +47,8 @@ public class TipAranzmana implements ApstraktniDomenskiObjekat {
      * @param nazivTipa naziv tipa aranzmana
      */
     public TipAranzmana(int tipID, String nazivTipa) {
-        this.tipID = tipID;
-        this.nazivTipa = nazivTipa;
+        setTipID(tipID);
+        setNazivTipa(nazivTipa);
     }
 
     /**
@@ -84,6 +84,12 @@ public class TipAranzmana implements ApstraktniDomenskiObjekat {
      * @param nazivTipa naziv tipa aranzmana kao String
      */
     public void setNazivTipa(String nazivTipa) {
+        if (nazivTipa == null) {
+            throw new NullPointerException("Naziv tipa ne sme biti null");
+        }
+        if (nazivTipa.isEmpty()) {
+            throw new IllegalArgumentException("Naziv tipa ne sme biti prazan");
+        }
         this.nazivTipa = nazivTipa;
     }
 
@@ -130,47 +136,47 @@ public class TipAranzmana implements ApstraktniDomenskiObjekat {
         final TipAranzmana other = (TipAranzmana) obj;
         return Objects.equals(this.nazivTipa, other.nazivTipa);
     }
-
+    
     @Override
     public String vratiNazivTabele() {
         return "tipAranzmana";
     }
-
+    
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-
+        
         while (rs.next()) {
             int tip = rs.getInt("tipID");
-
+            
             String naziv = rs.getString("tipAranzmana.nazivTipa");
-
+            
             TipAranzmana tipAr = new TipAranzmana(tip, naziv);
             lista.add(tipAr);
         }
-
+        
         return lista;
     }
-
+    
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "nazivTipa";
     }
-
+    
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + nazivTipa + "'";
     }
-
+    
     @Override
     public String vratiPrimarniKljuc() {
         return "tipAranzmana.tipID=" + tipID;
     }
-
+    
     @Override
     public String vratiVrednostZaIzmenu() {
-
+        
         return "nazivTipa='" + nazivTipa + "'";
     }
-
+    
 }

@@ -61,10 +61,10 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
      * @param cena cena fakultativne usluge
      */
     public FakultativnaUsluga(int uslugaID, String naziv, String opis, double cena) {
-        this.uslugaID = uslugaID;
-        this.naziv = naziv;
-        this.opis = opis;
-        this.cena = cena;
+        setUslugaID(uslugaID);
+        setNaziv(naziv);
+        setOpis(opis);
+        setCena(cena);
     }
 
     /**
@@ -82,6 +82,12 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
      * @param opis opis fakultativne usluge kao String
      */
     public void setOpis(String opis) {
+        if (opis == null) {
+            throw new NullPointerException("Opis ne sme biti null");
+        }
+        if (opis.isEmpty()) {
+            throw new IllegalArgumentException("Opis ne sme biti prazan");
+        }
         this.opis = opis;
     }
 
@@ -119,6 +125,12 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
      * @param naziv naziv fakultativne usluge kao String
      */
     public void setNaziv(String naziv) {
+        if (naziv == null) {
+            throw new NullPointerException("Naziv usluge ne sme biti null");
+        }
+        if (naziv.isEmpty()) {
+            throw new IllegalArgumentException("Naziv usluge ne sme biti prazan");
+        }
         this.naziv = naziv;
     }
 
@@ -137,6 +149,10 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
      * @param cena cena fakultativne usluge kao Double vrednost
      */
     public void setCena(double cena) {
+        if (cena <= 0) {
+            throw new IllegalArgumentException("Cena mora biti veca od nule");
+        }
+        
         this.cena = cena;
     }
 
@@ -186,48 +202,48 @@ public class FakultativnaUsluga implements ApstraktniDomenskiObjekat {
         }
         return Objects.equals(this.naziv, other.naziv);
     }
-
+    
     @Override
     public String vratiNazivTabele() {
         return "fakultativnausluga";
     }
-
+    
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-
+        
         while (rs.next()) {
             int uslugaid = rs.getInt("uslugaID");
-
+            
             String naziv = rs.getString("fakultativnausluga.naziv");
             String opis = rs.getString("opis");
             Double cena = rs.getDouble("fakultativnausluga.cena");
             FakultativnaUsluga usluga = new FakultativnaUsluga(uslugaid, naziv, opis, cena);
-
+            
             lista.add(usluga);
         }
-
+        
         return lista;
     }
-
+    
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "naziv,opis,cena";
     }
-
+    
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + naziv + "','" + opis + "'," + cena;
     }
-
+    
     @Override
     public String vratiPrimarniKljuc() {
         return "fakultativnausluga.uslugaID=" + uslugaID;
     }
-
+    
     @Override
     public String vratiVrednostZaIzmenu() {
         return "naziv='" + naziv + "', opis='" + opis + "', cena=" + cena;
     }
-
+    
 }

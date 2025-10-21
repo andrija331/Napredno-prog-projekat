@@ -83,13 +83,13 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
      * @param ukupnaCena ukupna cena rezervacije
      */
     public Rezervacija(int rezervacijaID, Zaposleni zaposleni, Klijent klijent, Aranzman aranzman, List<StavkaRezervacije> stavke, Date datum, Double ukupnaCena) {
-        this.rezervacijaID = rezervacijaID;
-        this.zaposleni = zaposleni;
-        this.klijent = klijent;
-        this.aranzman = aranzman;
-        this.stavke = stavke;
-        this.datum = datum;
-        this.ukupnaCena = ukupnaCena;
+        setRezervacijaID(rezervacijaID);
+        setZaposleni(zaposleni);
+        setKlijent(klijent);
+        setAranzman(aranzman);
+        setStavke(stavke);
+        setDatum(datum);
+        setUkupnaCena(ukupnaCena);
     }
 
     /**
@@ -125,6 +125,9 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
      * @param zaposleni zaposleni kao objekat klase {@code Zaposleni}
      */
     public void setZaposleni(Zaposleni zaposleni) {
+        if (zaposleni == null) {
+            throw new NullPointerException("Zaposleni ne sme biti null");
+        }
         this.zaposleni = zaposleni;
     }
 
@@ -143,6 +146,9 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
      * @param klijent klijent kao objekat klase {@code Klijent}
      */
     public void setKlijent(Klijent klijent) {
+        if (klijent == null) {
+            throw new NullPointerException("Klijent ne sme biti null");
+        }
         this.klijent = klijent;
     }
 
@@ -161,6 +167,9 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
      * @param aranzman aranzman kao objekat klase {@code Aranzman}
      */
     public void setAranzman(Aranzman aranzman) {
+        if (aranzman == null) {
+            throw new NullPointerException("Aranzman ne sme biti null");
+        }
         this.aranzman = aranzman;
     }
 
@@ -180,6 +189,9 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
      * {@code List<StavkaRezervacije>}
      */
     public void setStavke(List<StavkaRezervacije> stavke) {
+        if (stavke == null) {
+            throw new NullPointerException("Lista stavki ne sme biti null");
+        }
         this.stavke = stavke;
     }
 
@@ -198,6 +210,13 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
      * @param datum datum rezervacije kao objekat klase {@code Date}
      */
     public void setDatum(Date datum) {
+        if (datum == null) {
+            throw new NullPointerException("Datum rezervacije ne sme biti null");
+        }
+        Date danas = new Date();
+        if (datum.before(new Date(danas.getTime() - 86400000))) { // 86400000 ms = 1 dan
+            throw new IllegalArgumentException("Datum rezervacije ne sme biti u prošlosti");
+        }
         this.datum = datum;
     }
 
@@ -216,6 +235,12 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
      * @param ukupnaCena ukupna cena rezervacije kao Double vrednost
      */
     public void setUkupnaCena(Double ukupnaCena) {
+        if (ukupnaCena == null) {
+            throw new NullPointerException("Ukupna cena ne sme biti null");
+        }
+        if (ukupnaCena <= 0) {
+            throw new IllegalArgumentException("Ukupna cena mora biti veća od nule");
+        }
         this.ukupnaCena = ukupnaCena;
     }
 
@@ -265,12 +290,12 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
         }
         return Objects.equals(this.aranzman, other.aranzman);
     }
-
+    
     @Override
     public String vratiNazivTabele() {
         return "rezervacija";
     }
-
+    
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
@@ -279,34 +304,34 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
             rez.setRezervacijaID(rs.getInt("rezervacijaID"));
             rez.setUkupnaCena(rs.getDouble("ukupnaCena"));
             rez.setDatum(rs.getDate("rezervacija.datum"));
-
+            
             Zaposleni zaposleni = new Zaposleni();
             zaposleni.setZaposleniID(rs.getInt("zaposleniID"));
             zaposleni.setIme(rs.getString("zaposleni.ime"));
             zaposleni.setPrezime(rs.getString("zaposleni.prezime"));
             zaposleni.setUsername(rs.getString("zaposleni.username"));
             zaposleni.setPassword(rs.getString("zaposleni.password"));
-
+            
             Klijent klijent = new Klijent();
             klijent.setKlijentID(rs.getInt("klijentID"));
             klijent.setIme(rs.getString("klijent.ime"));
             klijent.setPrezime(rs.getString("klijent.prezime"));
             klijent.setEmail(rs.getString("klijent.email"));
             klijent.setBrojTelefona(rs.getLong("klijent.brojTelefona"));
-
+            
             TipAranzmana tip = new TipAranzmana();
             tip.setTipID(rs.getInt("tipID"));
             tip.setNazivTipa(rs.getString("tipAranzmana.nazivTipa"));
-
+            
             Grad grad = new Grad();
             grad.setGradID(rs.getInt("gradID"));
             grad.setDrzava(rs.getString("grad.drzava"));
             grad.setNazivGrada(rs.getString("grad.imeGrada"));
             grad.setOpis(rs.getString("grad.opis"));
-
+            
             System.out.println("Grad: " + grad);
-
-            Aranzman aranzman = new Aranzman();
+            
+            Aranzman aranzman1 = new Aranzman();
             aranzman.setAranzmanID(rs.getInt("aranzmanID"));
             aranzman.setNaziv(rs.getString("aranzman.naziv"));
             aranzman.setBrojNocenja(rs.getInt("aranzman.brojNocenja"));
@@ -314,37 +339,37 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
             aranzman.setDatum(rs.getDate("aranzman.datum"));
             aranzman.setTipAranzmana(tip);
             aranzman.setGrad(grad);
-
+            
             rez.setZaposleni(zaposleni);
             rez.setKlijent(klijent);
-            rez.setAranzman(aranzman);
+            rez.setAranzman(aranzman1);
             rez.setStavke(new ArrayList<>());
-
+            
             lista.add(rez);
         }
         return lista;
-
+        
     }
-
+    
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "datum,ukupnacena,zaposleni,klijent,aranzman";
     }
-
+    
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + new java.sql.Date(datum.getTime()) + "'," + ukupnaCena + "," + zaposleni.getZaposleniID() + "," + klijent.getKlijentID() + "," + aranzman.getAranzmanID();
     }
-
+    
     @Override
     public String vratiPrimarniKljuc() {
         return "rezervacijaID=" + rezervacijaID;
     }
-
+    
     @Override
     public String vratiVrednostZaIzmenu() {
         return "ukupnaCena=" + ukupnaCena + ", datum='" + new java.sql.Date(datum.getTime()) + "', aranzman=" + aranzman.getAranzmanID()
                 + ", klijent=" + klijent.getKlijentID() + ", zaposleni=" + zaposleni.getZaposleniID();
     }
-
+    
 }

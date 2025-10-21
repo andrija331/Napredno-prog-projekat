@@ -67,11 +67,11 @@ public class Klijent implements ApstraktniDomenskiObjekat {
      * @param brojTelefona broj telefona klijenta
      */
     public Klijent(int klijentID, String ime, String prezime, String email, long brojTelefona) {
-        this.klijentID = klijentID;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.email = email;
-        this.brojTelefona = brojTelefona;
+        setKlijentID(klijentID);
+        setIme(ime);
+        setPrezime(prezime);
+        setEmail(email);
+        setBrojTelefona(brojTelefona);
     }
 
     /**
@@ -123,7 +123,7 @@ public class Klijent implements ApstraktniDomenskiObjekat {
         if (ime.isEmpty()) {
             throw new IllegalArgumentException("Ime ne sme biti prazno");
         }
-
+        
         this.ime = ime;
     }
 
@@ -142,13 +142,13 @@ public class Klijent implements ApstraktniDomenskiObjekat {
      * @param prezime Prezime klijenta kao String
      */
     public void setPrezime(String prezime) {
-        if (ime == null) {
+        if (prezime == null) {
             throw new NullPointerException("Prezime ne sme biti null");
         }
-        if (ime.isEmpty()) {
+        if (prezime.isEmpty()) {
             throw new IllegalArgumentException("Prezime ne sme biti prazno");
         }
-
+        
         this.prezime = prezime;
     }
 
@@ -229,16 +229,16 @@ public class Klijent implements ApstraktniDomenskiObjekat {
         final Klijent other = (Klijent) obj;
         return Objects.equals(this.email, other.email);
     }
-
+    
     @Override
     public String vratiNazivTabele() {
         return "klijent";
     }
-
+    
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-
+        
         while (rs.next()) {
             int klijentid = rs.getInt("klijentID");
             long brTel = rs.getInt("brojTelefona");
@@ -248,29 +248,29 @@ public class Klijent implements ApstraktniDomenskiObjekat {
             Klijent k = new Klijent(klijentid, ime, prezime, email, brTel);
             lista.add(k);
         }
-
+        
         return lista;
     }
-
+    
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "ime,prezime,email,brojTelefona";
-
+        
     }
-
+    
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + ime + "','" + prezime + "','" + email + "'," + brojTelefona;
     }
-
+    
     @Override
     public String vratiPrimarniKljuc() {
         return "klijent.klijentID=" + klijentID;
     }
-
+    
     @Override
     public String vratiVrednostZaIzmenu() {
         return "ime='" + ime + "', prezime='" + prezime + "', email='" + email + "', brojTelefona=" + brojTelefona;
     }
-
+    
 }

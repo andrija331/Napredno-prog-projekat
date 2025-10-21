@@ -100,13 +100,13 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
      * @param grad grad u kome se aranzman realizuje
      */
     public Aranzman(int aranzmanID, String naziv, Date datum, int brojNocenja, Double cena, TipAranzmana tipAranzmana, Grad grad) {
-        this.aranzmanID = aranzmanID;
-        this.naziv = naziv;
-        this.datum = datum;
-        this.brojNocenja = brojNocenja;
-        this.cena = cena;
-        this.tipAranzmana = tipAranzmana;
-        this.grad = grad;
+        setAranzmanID(aranzmanID);
+        setNaziv(naziv);
+        setDatum(datum);
+        setBrojNocenja(brojNocenja);
+        setCena(cena);
+        setTipAranzmana(tipAranzmana);
+        setGrad(grad);
     }
 
     /**
@@ -142,6 +142,12 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
      * @param naziv naziv aranzmana kao String
      */
     public void setNaziv(String naziv) {
+        if (naziv == null) {
+            throw new NullPointerException("Naziv aranzmana ne sme biti null");
+        }
+        if (naziv.isEmpty()) {
+            throw new IllegalArgumentException("Naziv aranzmana ne sme biti prazan");
+        }
         this.naziv = naziv;
     }
 
@@ -160,6 +166,13 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
      * @param datum datum aranzmana kao Date
      */
     public void setDatum(Date datum) {
+        if (datum == null) {
+            throw new NullPointerException("Datum aranzmana ne sme biti null");
+        }
+        Date danas = new Date();
+        if (datum.before(new Date(danas.getTime() - 86400000))) { // 86400000 ms = 1 dan
+            throw new IllegalArgumentException("Datum aranzmana ne sme biti u proslosti");
+        }
         this.datum = datum;
     }
 
@@ -178,6 +191,9 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
      * @param brojNocenja broj nocenja kao Integer vrednost
      */
     public void setBrojNocenja(int brojNocenja) {
+        if (brojNocenja <= 0) {
+            throw new IllegalArgumentException("Broj nocenja mora biti veci od nula");
+        }
         this.brojNocenja = brojNocenja;
     }
 
@@ -196,6 +212,12 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
      * @param cena cena aranzmana kao Double vrednost
      */
     public void setCena(Double cena) {
+        if (cena == null) {
+            throw new NullPointerException("Cena ne sme biti null");
+        }
+        if (cena <= 0) {
+            throw new IllegalArgumentException("Cena mora biti veca od nula");
+        }
         this.cena = cena;
     }
 
@@ -214,6 +236,9 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
      * @param tipAranzmana tip aranzmana kao objekat klase {@code TipAranzmana}
      */
     public void setTipAranzmana(TipAranzmana tipAranzmana) {
+        if (tipAranzmana == null) {
+            throw new NullPointerException("Tip aranzmana ne sme biti null");
+        }
         this.tipAranzmana = tipAranzmana;
     }
 
@@ -232,6 +257,9 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
      * @param grad grad kao objekat klase {@code Grad}
      */
     public void setGrad(Grad grad) {
+        if (grad == null) {
+            throw new NullPointerException("Grad ne sme biti null");
+        }
         this.grad = grad;
     }
 
@@ -281,16 +309,16 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
         }
         return Objects.equals(this.naziv, other.naziv);
     }
-
+    
     @Override
     public String vratiNazivTabele() {
         return "aranzman";
     }
-
+    
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-
+        
         while (rs.next()) {
             int aranzmanid = rs.getInt("aranzmanID");
             String naziv = rs.getString("aranzman.naziv");
@@ -306,32 +334,32 @@ public class Aranzman implements ApstraktniDomenskiObjekat {
             String drzava = rs.getString("grad.drzava");
             String opis = rs.getString("grad.opis");
             Grad grad = new Grad(gradID, imeGrada, drzava, opis);
-
+            
             Aranzman a = new Aranzman(aranzmanid, naziv, datum, brNocenja, cena, tip, grad);
             lista.add(a);
         }
-
+        
         return lista;
     }
-
+    
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "naziv,datum,brojNocenja,cena,tipAranzmana,grad";
     }
-
+    
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + naziv + "','" + new java.sql.Date(datum.getTime()) + "'," + brojNocenja + "," + cena + "," + tipAranzmana.getTipID() + "," + grad.getGradID();
     }
-
+    
     @Override
     public String vratiPrimarniKljuc() {
         return "aranzman.aranzmanID=" + aranzmanID;
     }
-
+    
     @Override
     public String vratiVrednostZaIzmenu() {
         return "naziv='" + naziv + "', datum='" + new java.sql.Date(datum.getTime()) + "', brojNocenja=" + brojNocenja + ", cena=" + cena + ", tipAranzmana=" + tipAranzmana.getTipID() + ", grad=" + grad.getGradID();
     }
-
+    
 }

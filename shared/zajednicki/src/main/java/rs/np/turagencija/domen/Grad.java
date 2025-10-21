@@ -59,10 +59,10 @@ public class Grad implements ApstraktniDomenskiObjekat {
      * @param opis opis grada
      */
     public Grad(int gradID, String imeGrada, String drzava, String opis) {
-        this.gradID = gradID;
-        this.imeGrada = imeGrada;
-        this.drzava = drzava;
-        this.opis = opis;
+        setGradID(gradID);
+        setNazivGrada(imeGrada);
+        setDrzava(drzava);
+        setOpis(opis);
     }
 
     /**
@@ -80,6 +80,7 @@ public class Grad implements ApstraktniDomenskiObjekat {
      * @param gradID gradID grada kao Integer vrednost
      */
     public void setGradID(int gradID) {
+        
         this.gradID = gradID;
     }
 
@@ -98,6 +99,12 @@ public class Grad implements ApstraktniDomenskiObjekat {
      * @param nazivGrada naziv grada kao String
      */
     public void setNazivGrada(String nazivGrada) {
+        if (nazivGrada == null) {
+            throw new NullPointerException("Naziv grada ne sme biti null");
+        }
+        if (nazivGrada.isEmpty()) {
+            throw new IllegalArgumentException("Naziv grada ne sme biti prazan");
+        }
         this.imeGrada = nazivGrada;
     }
 
@@ -116,6 +123,12 @@ public class Grad implements ApstraktniDomenskiObjekat {
      * @param drzava naziv drzave kao String
      */
     public void setDrzava(String drzava) {
+        if (drzava == null) {
+            throw new NullPointerException("Naziv drzave ne sme biti null");
+        }
+        if (drzava.isEmpty()) {
+            throw new IllegalArgumentException("Naziv drzave ne sme biti prazan");
+        }
         this.drzava = drzava;
     }
 
@@ -134,6 +147,12 @@ public class Grad implements ApstraktniDomenskiObjekat {
      * @param opis opis grada kao String
      */
     public void setOpis(String opis) {
+        if (opis == null) {
+            throw new NullPointerException("Opis ne sme biti null");
+        }
+        if (opis.isEmpty()) {
+            throw new IllegalArgumentException("Opis ne sme biti prazan");
+        }
         this.opis = opis;
     }
 
@@ -182,17 +201,17 @@ public class Grad implements ApstraktniDomenskiObjekat {
         }
         return Objects.equals(this.drzava, other.drzava);
     }
-
+    
     @Override
     public String vratiNazivTabele() {
         return "grad";
     }
-
+    
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
-
+        
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-
+        
         while (rs.next()) {
             int gradID = rs.getInt("gradID");
             String imeGrada = rs.getString("grad.imeGrada");
@@ -201,28 +220,28 @@ public class Grad implements ApstraktniDomenskiObjekat {
             Grad grad = new Grad(gradID, imeGrada, drzava, opis);
             lista.add(grad);
         }
-
+        
         return lista;
     }
-
+    
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "imeGrada,drzava,opis";
     }
-
+    
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + imeGrada + "','" + drzava + "','" + opis + "'";
     }
-
+    
     @Override
     public String vratiPrimarniKljuc() {
         return "grad.gradID=" + gradID;
     }
-
+    
     @Override
     public String vratiVrednostZaIzmenu() {
         return "imeGrada='" + imeGrada + "', drzava='" + drzava + "', opis='" + opis + "'";
     }
-
+    
 }
