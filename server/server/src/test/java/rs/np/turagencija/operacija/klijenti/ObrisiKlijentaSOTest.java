@@ -45,7 +45,7 @@ public class ObrisiKlijentaSOTest {
 
             st.executeUpdate(
                     "INSERT INTO klijent (klijentID, ime, prezime, email, brojTelefona) "
-                    + "VALUES (1, 'Za', 'Brisanje', 'za@mail.com', 123456)"
+                    + "VALUES (1, 'Za', 'Brisanje', 'za@mail.com', 655001200)"
             );
 
             st.executeUpdate(
@@ -60,7 +60,7 @@ public class ObrisiKlijentaSOTest {
 
             st.executeUpdate(
                     "INSERT INTO aranzman (aranzmanID, naziv, datum, brojNocenja, cena, tipAranzmana, grad) "
-                    + "VALUES (1, 'Letovanje u Atini', '2025-11-15',8, 50000, 1, 1)"
+                    + "VALUES (1, 'Letovanje u Atini', '2026-11-15',8, 50000, 1, 1)"
             );
 
             st.executeUpdate(
@@ -70,7 +70,7 @@ public class ObrisiKlijentaSOTest {
 
             st.executeUpdate(
                     "INSERT INTO rezervacija (rezervacijaID, datum, ukupnaCena, zaposleni, klijent, aranzman) "
-                    + "VALUES (1, '2025-10-15', 50000, 1, 1, 1)"
+                    + "VALUES (1, '2026-10-15', 50000, 1, 1, 1)"
             );
 
         }
@@ -91,7 +91,7 @@ public class ObrisiKlijentaSOTest {
             assertEquals(1, rs.getInt(1), "Pre brisanja mora postojati jedna rezervacija.");
         }
 
-        Klijent k = new Klijent(1, "Za", "Brisanje", "za@mail.com", 123456);
+        Klijent k = new Klijent(1, "Za", "Brisanje", "za@mail.com", 655001200);
 
         System.out.println("Stize do ovde");
         ObrisiKlijentaSO so = new ObrisiKlijentaSO();

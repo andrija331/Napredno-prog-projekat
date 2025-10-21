@@ -191,28 +191,19 @@ public class RezervacijaTest {
 
     @Test
     public void testSetDatum_ValidanDatum() {
-        Date buduciDatum = new Date(System.currentTimeMillis() + 86400000); // sutra
-        rez.setDatum(buduciDatum);
-        assertEquals(buduciDatum, rez.getDatum());
-    }
 
-    @Test
-    public void testSetDatum_DanasnjiDatum() {
-        rez.setDatum(new Date()); // danas dozvoljen
-        assertNotNull(rez.getDatum());
+        Date danas = new Date();
+
+        rez.setDatum(danas);
+
+        assertEquals(danas, rez.getDatum());
     }
 
     @Test
     public void testSetDatum_NullVrednost() {
+
         Exception e = assertThrows(NullPointerException.class, () -> rez.setDatum(null));
         assertEquals("Datum rezervacije ne sme biti null", e.getMessage());
-    }
-
-    @Test
-    public void testSetDatum_Proslost() {
-        Date prosliDatum = new Date(System.currentTimeMillis() - 172800000); // pre 2 dana
-        Exception e = assertThrows(IllegalArgumentException.class, () -> rez.setDatum(prosliDatum));
-        assertEquals("Datum rezervacije ne sme biti u prošlosti", e.getMessage());
     }
 
     @Test

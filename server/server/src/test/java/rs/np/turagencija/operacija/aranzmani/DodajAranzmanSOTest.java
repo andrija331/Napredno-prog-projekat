@@ -57,7 +57,8 @@ public class DodajAranzmanSOTest {
     public void testDodajAranzman() throws Exception {
         Aranzman a = new Aranzman();
         a.setNaziv("Bec 2025");
-        a.setDatum(Date.valueOf("2025-05-01"));
+        //a.setDatum(Date.valueOf("2025-05-01"));
+        a.setDatum(Date.valueOf("2026-05-01"));
         a.setBrojNocenja(3);
         a.setCena(25000.0);
         a.setTipAranzmana(new TipAranzmana(1, "Vikend putovanje"));

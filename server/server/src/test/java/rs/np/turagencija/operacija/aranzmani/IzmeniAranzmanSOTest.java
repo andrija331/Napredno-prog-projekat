@@ -71,7 +71,7 @@ public class IzmeniAranzmanSOTest {
         Aranzman a = new Aranzman();
         a.setAranzmanID(id);
         a.setNaziv("Rim 2025 - Nova tura");
-        a.setDatum(Date.valueOf("2025-06-15"));
+        a.setDatum(Date.valueOf("2026-06-15"));
         a.setBrojNocenja(6);
         a.setCena(65000.0);
         a.setTipAranzmana(new TipAranzmana(1, "Letovanje"));

@@ -43,11 +43,11 @@ public class UcitajRezervacijeSOTest {
 
             st.executeUpdate("INSERT INTO tiparanzmana (tipID, nazivTipa) VALUES (1, 'Letovanje')");
             st.executeUpdate("INSERT INTO grad (gradID, imeGrada, drzava, opis) VALUES (1, 'Atina', 'Grcka', 'Glavni grad Grcke')");
-            st.executeUpdate("INSERT INTO klijent (klijentID, ime, prezime, email, brojTelefona) VALUES (1, 'Marko', 'Markovic', 'marko@mail.com', 123456)");
+            st.executeUpdate("INSERT INTO klijent (klijentID, ime, prezime, email, brojTelefona) VALUES (1, 'Marko', 'Markovic', 'marko@mail.com', 655000000)");
             st.executeUpdate("INSERT INTO zaposleni (zaposleniID, ime, prezime, username, password) VALUES (1, 'Jovan', 'Jovanovic', 'jj', '123')");
-            st.executeUpdate("INSERT INTO aranzman (aranzmanID, naziv, datum, brojNocenja, cena, tipAranzmana, grad) VALUES (1, 'Grcka', '2025-07-10', 10, 700.0, 1, 1)");
+            st.executeUpdate("INSERT INTO aranzman (aranzmanID, naziv, datum, brojNocenja, cena, tipAranzmana, grad) VALUES (1, 'Grcka', '2026-07-10', 10, 700.0, 1, 1)");
             st.executeUpdate("INSERT INTO fakultativnausluga (uslugaID, naziv, opis, cena) VALUES (1, 'Izlet', 'Dodatni izlet', 50)");
-            st.executeUpdate("INSERT INTO rezervacija (rezervacijaID, zaposleni, klijent, aranzman, datum, ukupnaCena) VALUES (1, 1, 1, 1, '2025-07-01', 750.0)");
+            st.executeUpdate("INSERT INTO rezervacija (rezervacijaID, zaposleni, klijent, aranzman, datum, ukupnaCena) VALUES (1, 1, 1, 1, '2026-07-01', 750.0)");
             st.executeUpdate("INSERT INTO stavkarezervacije (rezervacija, rb, cena, usluga) VALUES (1, 1, 50, 1)");
         }
 

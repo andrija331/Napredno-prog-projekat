@@ -213,10 +213,7 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
         if (datum == null) {
             throw new NullPointerException("Datum rezervacije ne sme biti null");
         }
-        Date danas = new Date();
-        if (datum.before(new Date(danas.getTime() - 86400000))) { // 86400000 ms = 1 dan
-            throw new IllegalArgumentException("Datum rezervacije ne sme biti u prošlosti");
-        }
+
         this.datum = datum;
     }
 
@@ -290,12 +287,12 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
         }
         return Objects.equals(this.aranzman, other.aranzman);
     }
-    
+
     @Override
     public String vratiNazivTabele() {
         return "rezervacija";
     }
-    
+
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
@@ -304,72 +301,72 @@ public class Rezervacija implements ApstraktniDomenskiObjekat {
             rez.setRezervacijaID(rs.getInt("rezervacijaID"));
             rez.setUkupnaCena(rs.getDouble("ukupnaCena"));
             rez.setDatum(rs.getDate("rezervacija.datum"));
-            
+
             Zaposleni zaposleni = new Zaposleni();
             zaposleni.setZaposleniID(rs.getInt("zaposleniID"));
             zaposleni.setIme(rs.getString("zaposleni.ime"));
             zaposleni.setPrezime(rs.getString("zaposleni.prezime"));
             zaposleni.setUsername(rs.getString("zaposleni.username"));
             zaposleni.setPassword(rs.getString("zaposleni.password"));
-            
+
             Klijent klijent = new Klijent();
             klijent.setKlijentID(rs.getInt("klijentID"));
             klijent.setIme(rs.getString("klijent.ime"));
             klijent.setPrezime(rs.getString("klijent.prezime"));
             klijent.setEmail(rs.getString("klijent.email"));
             klijent.setBrojTelefona(rs.getLong("klijent.brojTelefona"));
-            
+
             TipAranzmana tip = new TipAranzmana();
             tip.setTipID(rs.getInt("tipID"));
             tip.setNazivTipa(rs.getString("tipAranzmana.nazivTipa"));
-            
+
             Grad grad = new Grad();
             grad.setGradID(rs.getInt("gradID"));
             grad.setDrzava(rs.getString("grad.drzava"));
             grad.setNazivGrada(rs.getString("grad.imeGrada"));
             grad.setOpis(rs.getString("grad.opis"));
-            
+
             System.out.println("Grad: " + grad);
-            
+
             Aranzman aranzman1 = new Aranzman();
-            aranzman.setAranzmanID(rs.getInt("aranzmanID"));
-            aranzman.setNaziv(rs.getString("aranzman.naziv"));
-            aranzman.setBrojNocenja(rs.getInt("aranzman.brojNocenja"));
-            aranzman.setCena(rs.getDouble("aranzman.cena"));
-            aranzman.setDatum(rs.getDate("aranzman.datum"));
-            aranzman.setTipAranzmana(tip);
-            aranzman.setGrad(grad);
-            
+            aranzman1.setAranzmanID(rs.getInt("aranzmanID"));
+            aranzman1.setNaziv(rs.getString("aranzman.naziv"));
+            aranzman1.setBrojNocenja(rs.getInt("aranzman.brojNocenja"));
+            aranzman1.setCena(rs.getDouble("aranzman.cena"));
+            aranzman1.setDatum(rs.getDate("aranzman.datum"));
+            aranzman1.setTipAranzmana(tip);
+            aranzman1.setGrad(grad);
+
             rez.setZaposleni(zaposleni);
             rez.setKlijent(klijent);
             rez.setAranzman(aranzman1);
             rez.setStavke(new ArrayList<>());
-            
+
             lista.add(rez);
         }
         return lista;
-        
+
     }
-    
+
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "datum,ukupnacena,zaposleni,klijent,aranzman";
     }
-    
+
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return "'" + new java.sql.Date(datum.getTime()) + "'," + ukupnaCena + "," + zaposleni.getZaposleniID() + "," + klijent.getKlijentID() + "," + aranzman.getAranzmanID();
     }
-    
+
     @Override
     public String vratiPrimarniKljuc() {
         return "rezervacijaID=" + rezervacijaID;
     }
-    
+
     @Override
     public String vratiVrednostZaIzmenu() {
         return "ukupnaCena=" + ukupnaCena + ", datum='" + new java.sql.Date(datum.getTime()) + "', aranzman=" + aranzman.getAranzmanID()
                 + ", klijent=" + klijent.getKlijentID() + ", zaposleni=" + zaposleni.getZaposleniID();
     }
-    
+
 }

@@ -41,8 +41,8 @@ public class UcitajKlijenteSOTest {
             st.executeUpdate("DELETE FROM klijent");
             st.executeUpdate("DELETE FROM zaposleni");
 
-            st.executeUpdate("INSERT INTO klijent (ime, prezime, email, brojTelefona) VALUES ('Marko', 'Markovic', 'marko@mail.com', 123456)");
-            st.executeUpdate("INSERT INTO klijent (ime, prezime, email, brojTelefona) VALUES ('Jelena', 'Jovanovic', 'jelena@mail.com', 654321)");
+            st.executeUpdate("INSERT INTO klijent (ime, prezime, email, brojTelefona) VALUES ('Marko', 'Markovic', 'marko@mail.com', 655000000)");
+            st.executeUpdate("INSERT INTO klijent (ime, prezime, email, brojTelefona) VALUES ('Jelena', 'Jovanovic', 'jelena@mail.com', 655000100)");
         }
     }
 

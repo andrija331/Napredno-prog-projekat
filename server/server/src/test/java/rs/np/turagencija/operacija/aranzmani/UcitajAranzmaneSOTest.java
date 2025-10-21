@@ -45,7 +45,7 @@ public class UcitajAranzmaneSOTest {
             st.executeUpdate("INSERT INTO grad (gradID, imeGrada, drzava, opis) VALUES (1, 'Prag', 'Ceska', 'Prelep grad sa mostovima')");
             st.executeUpdate("INSERT INTO tiparanzmana (tipID, nazivTipa) VALUES (1, 'Letovanje')");
             st.executeUpdate("INSERT INTO aranzman (aranzmanID, naziv, datum, brojNocenja, cena,tipAranzmana ,grad ) "
-                    + "VALUES (1, 'Put u Prag', '2025-06-15', 5, 45000, 1, 1)");
+                    + "VALUES (1, 'Put u Prag', '2026-06-15', 5, 45000, 1, 1)");
         }
     }
 
